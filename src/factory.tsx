@@ -16,7 +16,7 @@ function hash(text: string): number {
 
 const generateRandomId = (): string => Math.random().toString(36).replace('0.', '')
 
-export function createElement(TargetComponent: string, styles: any): React.ElementType {
+export function createElement(TargetComponent: string, styles: any) {
   const PanacheComponent = React.forwardRef((props: React.ComponentProps<any>, ref) => {
     const [componentId] = React.useState(generateRandomId())
     const [componentVariationId] = React.useState(`pn${String(hash(JSON.stringify(props)))}`)
@@ -39,10 +39,8 @@ export function createElement(TargetComponent: string, styles: any): React.Eleme
       createStyleTag(componentStyle, componentVariationId)
     }, [JSON.stringify(props)])
 
-
-
-    return React.createElement(TargetComponent, computedProps)
-  })
+    return React.createElement('div', computedProps, 'asihsaihf')
+   })
 
   return PanacheComponent
 }

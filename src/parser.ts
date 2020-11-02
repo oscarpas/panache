@@ -28,6 +28,7 @@ export function parse(styleObject: StyleObject, componentVariantId: string): str
   const rules = parseStyleObject(styleObject, [`.${componentVariantId}`])
   let componentSheet = {}
 
+  console.log(rules)
   for (let i = 0; i < rules.length; i++) {
     const className = rules[i].class
     const [property, value] = rules[i].values
