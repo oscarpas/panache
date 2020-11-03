@@ -1,7 +1,8 @@
 import * as React from 'react'
 import { createStyleTag, removeStyleTag } from './sheet'
 
-const identifiers = {}
+import { ThemeContext } from './theme'
+import { StyleGenerator, StyleObject } from './types'
 
 function hash(text: string): number {
   let hash = 5381
@@ -16,8 +17,9 @@ function hash(text: string): number {
 
 const generateRandomId = (): string => Math.random().toString(36).replace('0.', '')
 
-export function createElement(TargetComponent: string, styles: any) {
+export function createElement(TargetComponent: string, styles: StyleObject | StyleGenerator ) {
   const PanacheComponent = React.forwardRef((props: React.ComponentProps<any>, ref) => {
+    const theme = React.useContext(ThemeContext)
     const [componentId] = React.useState(generateRandomId())
     const [componentVariationId] = React.useState(`pn${String(hash(JSON.stringify(props)))}`)
 
@@ -28,7 +30,7 @@ export function createElement(TargetComponent: string, styles: any) {
     }
 
     // styles can be a function or object
-    const componentStyle = typeof styles === 'function' ? styles(props): styles
+    const componentStyle = typeof styles === 'function' ? styles({ theme, ...props }): styles
 
     React.useEffect(() => {
       createStyleTag(componentStyle, componentVariationId)
@@ -39,8 +41,8 @@ export function createElement(TargetComponent: string, styles: any) {
       createStyleTag(componentStyle, componentVariationId)
     }, [JSON.stringify(props)])
 
-    return React.createElement('div', computedProps, 'asihsaihf')
-   })
+    return React.createElement(TargetComponent, computedProps, 'asisaihfaa')
+  })
 
   return PanacheComponent
 }

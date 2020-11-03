@@ -8,7 +8,7 @@ const camelToDash = (str: string): string =>
  * @param styleObject 
  * @param parentClasses 
  */
-export function parseStyleObject(styleObject: StyleObject, parentClasses: Array<string>) {
+export function parseStyleObject(styleObject: StyleObject, parentClasses: Array<string>): Array<any>  {
   const entries = Object.entries(styleObject)
   let rules = []
 
@@ -28,7 +28,6 @@ export function parse(styleObject: StyleObject, componentVariantId: string): str
   const rules = parseStyleObject(styleObject, [`.${componentVariantId}`])
   let componentSheet = {}
 
-  console.log(rules)
   for (let i = 0; i < rules.length; i++) {
     const className = rules[i].class
     const [property, value] = rules[i].values
