@@ -3,47 +3,88 @@ import { StyleObject } from "./types"
 const camelToDash = (str: string): string =>
   str.replace(/([A-Z])/g, ($1) => "-"+$1.toLowerCase())
 
+interface StyleItem {
+  selector: string,
+  values: [cssProperty: string, cssValue: string],
+  media: string | void
+}
+
 /**
- * Recursively parse a StyleObject into a flat array
- * @param styleObject 
- * @param parentClasses 
+ * Recursively parse a StyleObject into a flat array of StyleItems
  */
-export function parseStyleObject(styleObject: StyleObject, parentClasses: Array<string>): Array<any>  {
+export function parseStyleObject(
+  styleObject: StyleObject,
+  parentClasses: Array<string>,
+  mediaRule: string | void,
+): Array<StyleItem> {
   const entries = Object.entries(styleObject)
   let rules = []
 
   for (let i = 0; i < entries.length; i++) {
     const [ key, style ] = entries[i]
 
-    if (typeof style === 'object')
-      rules.push(...parseStyleObject(style, [...parentClasses, key]))
-    else
-      rules.push({ class: parentClasses.join(' ').replace(' &', ''), values: entries[i] })
+    // Recursively parse if style is an object
+    if (typeof style === 'object') {
+      const isMediaObject = key.includes('@media')
+      // Add media rule to object if current object is media,
+      // or if inherited from parent
+      const currentMediaRule = isMediaObject ? key : mediaRule
+        ? mediaRule : undefined
+
+      // Don't add current key as class if it's a media object
+      const currentClass = isMediaObject ? [] : [key]
+      const classes = [...parentClasses, ...currentClass]
+      rules.push(...parseStyleObject(style, classes, currentMediaRule))
+    }
+    // If it's not an object we can add it as a StyleItem
+    else {
+      rules.push({
+        selector: parentClasses.join(' ').replace(' &', ''),
+        values: entries[i],
+        media: mediaRule
+      })
+    }
   }
 
   return rules
 }
 
+type ComponentSheet = {
+  [key: string]: [string] | object
+}
+
 export function parse(styleObject: StyleObject, componentVariantId: string): string {
   const rules = parseStyleObject(styleObject, [`.${componentVariantId}`])
-  let componentSheet = {}
+  let componentSheet = {} as ComponentSheet
 
+  // Group CSS rules by selector and media query
   for (let i = 0; i < rules.length; i++) {
-    const className = rules[i].class
-    const [property, value] = rules[i].values
-    componentSheet[className] = [
-      ...componentSheet[className] || [],
-      `${camelToDash(property)}:${value}`
-    ]
+    const { media, selector } = rules[i]
+    const [cssProperty, cssValue] = rules[i].values
+    const cssString = `${camelToDash(cssProperty)}:${cssValue}`
+
+    componentSheet[media || selector] = !media
+      ? [
+        ...componentSheet[selector] || [],
+        cssString
+      ]
+      : {
+        ...componentSheet[media],
+        [selector]: [ 
+          ...componentSheet?.[media]?.[selector] || [],
+          cssString
+        ]
+      }
   }
 
-  const sheetItemToString = (sheetItem: [string, Array<string>]) => 
-    `${sheetItem[0]}{${sheetItem[1].join(';')}}`
-
-  const sheetString = Object
-    .entries(componentSheet)
-    .map(sheetItemToString)
+  // Convert component sheet to string
+  const componentSheetToString = (sheet: object): string => Object
+    .entries(sheet)
+    .map(([key, values]) => {
+      if (!Array.isArray(values)) return `${key}{${componentSheetToString(values)}}`
+      return `${key}{${values.join(';')}}`
+    })
     .join(' ')
 
-  return sheetString
+  return componentSheetToString(componentSheet)
 }

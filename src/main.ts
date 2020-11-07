@@ -1,5 +1,4 @@
 import { createElement }from './factory'
-import { parse } from './parser'
 import { StyleGenerator, StyleObject } from './types'
 import htmlTags from './utils/htmlTags'
 import { ThemeProvider, ThemeContext } from './theme'
