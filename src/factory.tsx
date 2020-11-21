@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { serverSheet, createStyleTag, removeStyleTag } from './sheet'
-import { ThemeContext } from './theme'
+import { PanacheContext } from './provider'
 import { StyleGenerator, StyleObject } from './types'
 
 function hash(text: string): number {
@@ -18,7 +18,7 @@ const generateRandomId = (): string => Math.random().toString(36).replace('0.', 
 
 export function createElement(TargetComponent: string, styles: StyleObject | StyleGenerator ) {
   const PanacheComponent = React.forwardRef((props: React.ComponentProps<any>, ref) => {
-    const theme = React.useContext(ThemeContext)
+    const context = React.useContext(PanacheContext)
     //const [componentId] = React.useState(generateRandomId())
     // TODO variant id should probably include TargetComponent?
     const [componentVariationId] = React.useState(`pn${String(hash(JSON.stringify(props)))}`)
@@ -31,7 +31,7 @@ export function createElement(TargetComponent: string, styles: StyleObject | Sty
     }
 
     // styles can be a function or object
-    const componentStyle = typeof styles === 'function' ? styles({ theme, ...props }): styles
+    const componentStyle = typeof styles === 'function' ? styles({ ...context, ...props }): styles
 
     // Add styles to server sheet if SSR
     if (isServerRendered) serverSheet.add(styles, componentVariationId)
@@ -43,6 +43,7 @@ export function createElement(TargetComponent: string, styles: StyleObject | Sty
       return () => removeStyleTag(componentVariationId)
     }, [isServerRendered])
 
+    // Update styles when props change
     React.useEffect(() => {
       createStyleTag(componentStyle, componentVariationId)
     }, [JSON.stringify(props)])

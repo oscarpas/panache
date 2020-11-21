@@ -50,11 +50,12 @@ export function parseStyleObject(
 }
 
 type ComponentSheet = {
-  [key: string]: [string] | object
+  [key: string]: any
 }
 
-export function parse(styleObject: StyleObject, componentVariantId: string): string {
-  const rules = parseStyleObject(styleObject, [`.${componentVariantId}`])
+export function parse(styleObject: StyleObject, componentVariantId: string | void): string {
+  const parentClasses = componentVariantId ? [`.${componentVariantId}`] : []
+  const rules = parseStyleObject(styleObject, parentClasses)
   let componentSheet = {} as ComponentSheet
 
   // Group CSS rules by selector and media query

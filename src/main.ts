@@ -1,7 +1,7 @@
 import { createElement }from './factory'
 import { StyleGenerator, StyleObject } from './types'
 import htmlTags from './utils/htmlTags'
-import { ThemeProvider, ThemeContext } from './theme'
+import { PanacheProvider, PanacheContext } from './provider'
 
 const panache = {
 	// All HTML tags as Component creators
@@ -9,8 +9,8 @@ const panache = {
 		({ ...acc, [tag]: (style: StyleObject | StyleGenerator) => createElement(tag, style) }), {}),
 
 	// Theme
-	ThemeProvider,
-	ThemeContext
+	PanacheContext,
+	PanacheProvider
 }
 
 export default panache
