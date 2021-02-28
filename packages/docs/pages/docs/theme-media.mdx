@@ -1,0 +1,37 @@
+# Theme and media queries
+
+Add the Panache Provider at the top of your component tree. Pass theme and media objects as props to the provider.
+
+```jsx
+import { PanacheProvider } from 'panache'
+
+const media = {
+  colors: {
+    primary: '#333',
+    accent: 'blue',
+  },
+  fonts: {
+    regular: 'Akzidenz-Grotesk, sans-serif'
+  }
+}
+
+const media = {
+  small: '@media(max-width: 768px)'
+}
+
+<PanacheProvider media={media} theme={theme}>
+  <App />
+</PanacheProvider>
+```
+
+You can then access the theme and media objects further down the component tree.
+
+```jsx
+const MyComponent = lib.div(({ theme, media }) => ({
+  color: theme.colors.primary,
+  fontSize: '18px',
+  [media.small]: {
+    fontSize: '16px'
+  }
+}))
+```

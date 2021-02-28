@@ -1,0 +1,19 @@
+{
+  "name": "@panache/docs",
+  "version": "0.0.1",
+  "module": "dist/index.esm.js",
+  "main": "dist/index.cjs.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^10.0.7",
+    "nextra": "^0.4.1",
+    "nextra-theme-docs": "^1.1.2",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1"
+  }
+}

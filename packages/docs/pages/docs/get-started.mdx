@@ -1,0 +1,100 @@
+import panache from '@panache/react'
+import { useState } from 'react'
+
+# Get started
+
+### Installation
+
+```bash
+# with npm
+npm install --save @panache/react
+
+# with yarn
+yarn add @panache/react
+```
+
+### Create Panache components
+
+The Panache component creator takes a style object or a function that returns a style object as argument. The creator can create any valid HTML element.
+
+Below we'll initiate a `div` component and pass a style object to it.
+
+```jsx
+import panache from 'panache'
+
+const MyComponent = panache.div({
+  color: '#fff',
+  backgroundColor: 'gray',
+  padding: '20px'
+})
+```
+
+Use it like a regular React component.
+
+```jsx
+<MyComponent>
+  Hello, I'm a Panache component
+</MyComponent>
+```
+
+This component will render the following output.
+
+export const Example1 = panache.div({
+  color: '#fff',
+  backgroundColor: 'gray',
+  padding: '20px'
+})
+
+<Example1>
+  Hello, I'm a Panache component
+</Example1>
+
+### Dynamic style based on props
+
+It's easy to adapt your components style based on props. To access props we pass a function to the component creator, the function will receive any props you pass in.
+
+```jsx
+const MyComponent = panache.div(({ isClicked }) => ({
+	color: '#fff',
+	backgroundColor: isClicked ? 'red' : 'gray',
+  padding: '20px'
+}))
+```
+
+```jsx
+<MyComponent isClicked={true} />
+```
+
+export const Example2 = () => {
+  const [isClicked, setIsClicked] = useState(false)
+  const MyComponent = panache.div({
+    color: '#fff',
+    backgroundColor: isClicked ? 'red' : 'gray',
+    padding: '20px'
+  })
+  return <MyComponent isClicked={isClicked} onClick={ev => setIsClicked(!isClicked)}>
+    Click me!
+  </MyComponent>
+}
+
+<Example2>
+  Click me!
+</Example2>
+
+
+### Nested elements and pseudo selectors
+
+You can target nested elements, pseudo selectors and custom classes
+
+```jsx
+const MyComponent = panache.div({
+  color: '#fff',
+  backgroundColor: 'gray',
+  div: {
+    backgroundColor: 'red',
+  },
+  '&:hover': {
+    backgroundColor: 'black',
+  },
+})
+```

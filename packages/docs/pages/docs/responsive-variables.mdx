@@ -1,0 +1,90 @@
+# Responsive variables
+
+With responsive variables you can bind CSS values to one or multiple media query rules. 
+
+### Example 1: Consistent and adaptive white space across devices
+
+Say you have a value that you want to use for white space in your layout, such as paddings and margins. This value will be used for multiple CSS properties. It should be consistent across the entire layout, and it should change depending on viewport width.
+
+Define a responsive variable as an array. In this example `15px` is used as the default value, and `30px` is bound to a breakpoint. You can add as many breakpoints as needed.
+
+```jsx
+const media = {
+  small: '@media(min-width: 768px)',
+}
+
+const theme = {
+  $space: ['15px', [media.small, '30px']],
+}
+```
+
+You can then use the variable for any CSS property, in any component. The value will be consistent and change depending on breakpoint.
+
+```jsx
+const MyThing = lib.div(({ them }) => ({
+	padding: theme.$space,
+	marginTop: theme.$space,
+}))
+```
+
+When parsed the CSS output will be:
+
+```css
+.MyThing {
+	padding: 15px;
+	margin-top: 15px;
+}
+
+@media (min-width: 768px) {
+	.MyThing {
+		padding: 30px;
+		margin-top: 30px;
+	}
+}
+```
+
+### Example 2: Easy dark/light mode based on the users preference
+
+Dark mode is becoming more and more popular and many devices let's the user set their preference for which mode they prefer.
+
+With responsive variables it's easy to adapt your colors based on the user. We'll add a media query rule which detects if a user prefers dark mode, then we'll bind CSS values to this rule.
+
+The primary color used for text will be black by default, if the user prefers a dark mode it will change to white. Same goes for the background color, but the other way around.
+
+```jsx
+const media = {
+  dark: '@media (prefers-color-scheme: dark)',
+}
+
+const theme = {
+  colors: {
+    $primary: ['black', [media.dark, 'white']],
+    $background: ['white', [media.dark, 'black']]
+  }
+}
+```
+
+Use the variables in your components.
+
+```jsx
+const MyThing = lib.div(({ theme }) => ({
+	color: theme.colors.$primary,
+	backgroundColor: theme.colors.$background,
+}))
+```
+
+And it will result in the following CSS when parsed.
+
+```css
+.MyThing {
+  color: 'black',
+  backgroun-color: 'white'
+}
+
+@media (prefers-color-scheme: dark) {
+  .MyThing {
+    color: 'white',
+    backgroun-color: 'black'
+  }
+}
+```
