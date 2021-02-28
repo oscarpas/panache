@@ -14,15 +14,15 @@ function hash(text: string): number {
   return hash >>> 0
 }
 
-const generateRandomId = (): string => Math.random().toString(36).replace('0.', '')
-
 export function createElement(TargetComponent: string, styles: StyleObject | StyleGenerator ) {
   const PanacheComponent = React.forwardRef((props: React.ComponentProps<any>, ref) => {
-    const context = React.useContext(PanacheContext)
-    //const [componentId] = React.useState(generateRandomId())
-    // TODO variant id should probably include TargetComponent?
-    const [componentVariationId] = React.useState(`pn${String(hash(JSON.stringify(props)))}`)
     const isServerRendered = typeof window === 'undefined'
+    const context = React.useContext(PanacheContext)
+
+    // Use props as identifier (without children to avoid circular structure)
+    // TODO: identifer should include TargetComponent?
+    const identifier = JSON.stringify({ ...props, children: null })
+    const [componentVariationId] = React.useState(`pn${String(hash(identifier))}`)
 
     const computedProps = {
       ...props,
@@ -46,9 +46,9 @@ export function createElement(TargetComponent: string, styles: StyleObject | Sty
     // Update styles when props change
     React.useEffect(() => {
       createStyleTag(componentStyle, componentVariationId)
-    }, [JSON.stringify(props)])
+    }, [identifier])
 
-    return React.createElement(TargetComponent, computedProps, 'asisaihfaa')
+    return React.createElement(TargetComponent, computedProps, props.children)
   })
 
   return PanacheComponent

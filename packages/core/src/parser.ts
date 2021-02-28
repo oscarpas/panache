@@ -23,8 +23,35 @@ export function parseStyleObject(
   for (let i = 0; i < entries.length; i++) {
     const [ key, style ] = entries[i]
 
+    // If style is an array it means it's a responsive variable
+    if (Array.isArray(style)) {
+      const property = key
+
+      // Push each responsive value as rules
+      for (let j = 0; j < style.length; j++) {
+        // Skip this iteration if value isn't valid
+        if (typeof style[j] !== 'string' && !Array.isArray(style[j])) continue
+
+        const selector = parentClasses.join(' ').replace(' &', '')
+
+        // If the value is a string it's the default value of the responsive variable
+        if (typeof style[j] === 'string') rules.push({
+          selector,
+          values: [property, style[j]],
+          media: undefined
+        })
+
+        // Otherwise it's a value bound to a media query in this form: [media, value]
+        else rules.push({
+          selector,
+          values: [property, style[j][1]],
+          media: style[j][0]
+        })
+      }
+    }
+
     // Recursively parse if style is an object
-    if (typeof style === 'object') {
+    else if (typeof style === 'object') {
       const isMediaObject = key.includes('@media')
       // Add media rule to object if current object is media,
       // or if inherited from parent
@@ -36,6 +63,7 @@ export function parseStyleObject(
       const classes = [...parentClasses, ...currentClass]
       rules.push(...parseStyleObject(style, classes, currentMediaRule))
     }
+
     // If it's not an object we can add it as a StyleItem
     else {
       rules.push({
