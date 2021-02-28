@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { parse } from './parser'
+import { parse } from '@panache/core'
 import { StyleObject } from './types'
 import ReactDOMServer from 'react-dom/server'
 
