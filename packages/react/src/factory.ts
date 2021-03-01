@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { serverSheet, createStyleTag, removeStyleTag } from './sheet'
+import { sheet } from './sheet'
 import { PanacheContext } from './provider'
 import { StyleGenerator, StyleObject } from './types'
 
@@ -14,13 +14,13 @@ function hash(text: string): number {
   return hash >>> 0
 }
 
-export function createElement(TargetComponent: string, styles: StyleObject | StyleGenerator ) {
+export function createElement(TargetComponent: string, styles: StyleObject | StyleGenerator) {
   const PanacheComponent = React.forwardRef((props: React.ComponentProps<any>, ref) => {
-    const isServerRendered = typeof window === 'undefined'
     const context = React.useContext(PanacheContext)
 
+    // TODO: refactor component id to something more robust
     // Use props as identifier (without children to avoid circular structure)
-    // TODO: identifer should include TargetComponent?
+    // identifer should include TargetComponent?
     const identifier = JSON.stringify({ ...props, children: null })
     const [componentVariationId] = React.useState(`pn${String(hash(identifier))}`)
 
@@ -30,23 +30,11 @@ export function createElement(TargetComponent: string, styles: StyleObject | Sty
       className: [componentVariationId, props.className].join(' ')
     }
 
-    // styles can be a function or object
-    const componentStyle = typeof styles === 'function' ? styles({ ...context, ...props }): styles
-
-    // Add styles to server sheet if SSR
-    if (isServerRendered) serverSheet.add(styles, componentVariationId)
-
-    // Otherwise add style on first render
-    React.useEffect(() => {
-      if (isServerRendered) return
-      createStyleTag(componentStyle, componentVariationId)
-      return () => removeStyleTag(componentVariationId)
-    }, [isServerRendered])
-
-    // Update styles when props change
-    React.useEffect(() => {
-      createStyleTag(componentStyle, componentVariationId)
-    }, [identifier])
+    // get style object
+    const componentStyleObject = typeof styles === 'function'
+      ? styles({ ...context, ...props }) : styles
+    // add component styles to sheet
+    sheet.add(componentStyleObject, componentVariationId)
 
     return React.createElement(TargetComponent, computedProps, props.children)
   })

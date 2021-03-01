@@ -7,8 +7,10 @@ export default [
 		input: 'src/main.ts',
 		external: ['react'],
 		plugins: [
-			resolve(),
 			typescript(),
+			resolve({
+				only: [ '@panache/core',]
+			}),
 		],
 		output: [
 			{ file: pkg.module, format: 'es' }
