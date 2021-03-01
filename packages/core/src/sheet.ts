@@ -26,9 +26,9 @@ export class Sheet {
     // TODO
   }
 
-  add(styleObject: StyleObject, componentVariantId: string) {
+  add(styleObject: StyleObject, componentVariantId: string, isGlobal: boolean) {
     const isServerSide = typeof window === 'undefined'
-    const css = parse(styleObject, componentVariantId)
+    const css = parse(styleObject, isGlobal ? undefined : componentVariantId)
 
     this.sheet = {
       ...this.sheet,
