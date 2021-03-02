@@ -9,12 +9,6 @@ export const sheet = new Sheet()
 export function createGlobalStyle(styles: StyleObject | StyleGenerator) {
   const GlobalStyle = React.forwardRef((props: React.ComponentProps<any>, ref) => {
     const context = React.useContext(PanacheContext)
-    const computedProps = {
-      ...props,
-      ref,
-      className: ['global', props.className].join(' ')
-    }
-
     const componentStyleObject = typeof styles === 'function'
       ? styles({ ...context, ...props }) : styles
 

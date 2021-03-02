@@ -26,9 +26,20 @@ export class Sheet {
     // TODO
   }
 
+  /**
+   * Adds a components style to the sheet
+   * – The componentVariantId should be a unique id for the current state of the component,
+   *   currently it's a hash of "elementTag + styleObject + props".
+   *   This'll need further testing, it might not be robust enough.
+   * – Component style is parsed and cached in this class
+   *   If this is called and the component variant already exists it'll not be re-added
+   * – A style tag is injected if this is called on the client side
+   */
   add(styleObject: StyleObject, componentVariantId: string, isGlobal: boolean) {
     const isServerSide = typeof window === 'undefined'
     const css = parse(styleObject, isGlobal ? undefined : componentVariantId)
+
+    if (this.sheet[componentVariantId]) return
 
     this.sheet = {
       ...this.sheet,
