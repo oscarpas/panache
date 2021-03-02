@@ -7,7 +7,7 @@ Extend a Panache component.
 ```jsx
 const MyComponent = panache.div({
 	color: 'blue',
-  backgroundColor: 'gray',
+	backgroundColor: 'gray',
 })
 
 const MyOtherComponent = panache.div({
@@ -24,7 +24,7 @@ const errorStyles = {
 	color: '#fff',
 }
 
-const MyThing = lib.div(({ hasError }) => ({
+const MyThing = panache.div(({ hasError }) => ({
 	... hasError && errorStyles,
 	padding: '15px'
 }))

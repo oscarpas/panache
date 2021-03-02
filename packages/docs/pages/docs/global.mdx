@@ -1,0 +1,41 @@
+import { createGlobalStyle, PanacheProvider } from '@panache/react'
+
+# Global styles
+
+Panache is component scoped by design but sometimes it can be helpful to add global styles such as resets or base styles.
+
+You can use the helper function `createGlobalStyle` to do this. It works like the regular component creator and you have access to your `theme`, `media` and other props in the same way.
+
+```jsx
+import { createGlobalStyle } from '@panache/react'
+
+const GlobalStyle = createGlobalStyle(({ theme }) => ({
+  html: {
+    fontSize: '20px',
+    fontFamily: theme.fonts.primary
+  },
+}))
+```
+
+Then add the `GlobalStyle` at the top of your app tree, but inside your provider.
+
+```jsx
+<PanacheProvider theme={theme} media={media}>
+  <GlobalStyle />
+  <App />
+</PanacheProvider>
+```
+
+### Reset CSS
+
+```bash
+# with npm
+npm install --save @panache/reset
+
+# with yarn
+yarn add @panache/reset
+```
+
+```jsx
+import reset from '@panache/reset'
+```

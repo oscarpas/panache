@@ -1,5 +1,6 @@
 import panache from '@panache/react'
 import { useState } from 'react'
+import { Example } from '../../components/Example/Example'
 
 # Get started
 
@@ -20,7 +21,7 @@ The Panache component creator takes a style object or a function that returns a 
 Below we'll initiate a `div` component and pass a style object to it.
 
 ```jsx
-import panache from 'panache'
+import panache from '@panache/react'
 
 const MyComponent = panache.div({
   color: '#fff',
@@ -45,24 +46,26 @@ export const Example1 = panache.div({
   padding: '20px'
 })
 
-<Example1>
-  Hello, I'm a Panache component
-</Example1>
+<Example>
+  <Example1>
+    Hello, I'm a Panache component
+  </Example1>
+</Example>
 
 ### Dynamic style based on props
 
-It's easy to adapt your components style based on props. To access props we pass a function to the component creator, the function will receive any props you pass in.
+It's easy to adapt your components style based on props. To access props we pass a function to the component creator, the function will receive a props object where you can access any props you pass in.
 
 ```jsx
-const MyComponent = panache.div(({ isClicked }) => ({
-	color: '#fff',
-	backgroundColor: isClicked ? 'red' : 'gray',
+const MyComponent = panache.div(props => ({
+  color: '#fff',
+  backgroundColor: props.isClicked ? 'red' : 'gray',
   padding: '20px'
 }))
 ```
 
 ```jsx
-<MyComponent isClicked={true} />
+<MyComponent isClicked={isClicked} />
 ```
 
 export const Example2 = () => {
@@ -77,9 +80,11 @@ export const Example2 = () => {
   </MyComponent>
 }
 
-<Example2>
-  Click me!
-</Example2>
+<Example>
+  <Example2>
+    Click me!
+  </Example2>
+</Example>
 
 
 ### Nested elements and pseudo selectors

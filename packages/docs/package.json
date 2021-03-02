@@ -10,9 +10,11 @@
     "start": "next start"
   },
   "dependencies": {
+    "@mdx-js/loader": "^1.6.22",
+    "@mdx-js/react": "^1.6.22",
+    "@next/mdx": "^10.0.7",
     "next": "^10.0.7",
-    "nextra": "^0.4.1",
-    "nextra-theme-docs": "^1.1.2",
+    "prism-react-renderer": "^1.2.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
   }
