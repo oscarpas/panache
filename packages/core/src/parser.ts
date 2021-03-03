@@ -1,4 +1,5 @@
 import { StyleObject } from "./types"
+import sortBy from 'lodash-es/sortBy'
 
 const camelToDash = (str: string): string =>
   str.replace(/([A-Z])/g, ($1) => "-"+$1.toLowerCase())
@@ -83,7 +84,9 @@ type ComponentSheet = {
 
 export function parse(styleObject: StyleObject, componentVariantId: string | void): string {
   const parentClasses = componentVariantId ? [`.${componentVariantId}`] : []
-  const rules = parseStyleObject(styleObject, parentClasses)
+  const rulesDef = parseStyleObject(styleObject, parentClasses)
+  // Put rules with media queries at the end
+  const rules = sortBy(rulesDef, r => r.media !== undefined)
   let componentSheet = {} as ComponentSheet
 
   // Group CSS rules by selector and media query
