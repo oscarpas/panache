@@ -1,5 +1,9 @@
 import panache from '@panache/react'
 import { Sidebar } from '../Sidebar/Sidebar'
+import { Footer } from '../Footer/Footer'
+import { Header } from '../Header/Header'
+import navIndex from '../../constants/nav'
+import { useRouter } from 'next/router'
 
 const Container = panache.div({
   display: 'flex',
@@ -13,23 +17,22 @@ const SidebarContainer = panache.aside(({ theme }) => ({
 }))
 
 const MainContainer = panache.main({
-  flexGrow: '1'
-})
-
-const Main = panache.div({
+  flexGrow: '1',
   maxWidth: '768px',
   margin: '2rem auto',
 })
 
 export const Layout = ({ children }) => {
+  const { pathname } = useRouter()
+
   return <Container>
+    <Header />
     <SidebarContainer>
-      <Sidebar />
+      <Sidebar currentPath={pathname} sidebarIndex={navIndex} />
     </SidebarContainer>
     <MainContainer>
-      <Main>
-        {children}
-      </Main>
+      {children}
+      <Footer currentPath={pathname} />
     </MainContainer>
   </Container>
 }

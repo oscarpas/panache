@@ -1,0 +1,69 @@
+# Extend components and share styles
+
+Since your CSS are objects it's easy and intuitive to extend and share styles using the spread operator.
+
+###  Extend simple style objects with the spread operator 
+
+Extend a simple Panache component.
+
+```jsx
+const MyComponent = panache.div({
+	color: 'blue',
+	backgroundColor: 'gray',
+})
+
+const MyOtherComponent = panache.div({
+	...MyComponent.Styles,
+	color: 'red'
+})
+```
+
+### Extend complex style objects
+
+If you have nested styles in your style objects the spread operator will override the entire inherited nested styles. Instead you can use the `extend` function to deep merge your complex style objects.
+
+```jsx
+const MyComponent = panache.div({
+	padding: '15px',
+	div: {
+		backgroundColor: 'red',
+		color: 'blue'
+	}
+})
+
+const MyOtherComponent = panache.extend(MyComponent)({
+	div: {
+		backgroundColor: 'green'
+	}
+})
+```
+
+This will preserve the original `color: blue` rule and also add the new `backgroundColor: green` rule to the nested div.
+
+### Compose styles from multiple components
+
+```jsx
+const MyComposedComponent = panache.extend([ CompA, CompB ])({
+	padding: '15px',
+	div: {
+		backgroundColor: 'red',
+		color: 'blue'
+	}
+})
+```
+
+### Change element type of a component
+
+You can change the element type of a component using the `as` prop.
+
+```jsx
+const Button = panache.button({
+	border: 'red',
+})
+```
+
+Below will render an `a` element instead of a button.
+
+```jsx
+<Button as="a" />
+```

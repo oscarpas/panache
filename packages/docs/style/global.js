@@ -18,6 +18,9 @@ const GlobalStyle = createGlobalStyle(({ theme }) => ({
   ['*, :after, :before']: {
     boxSizing: 'border-box'
   },
+  a: {
+    color: theme.colors.primary,
+  },
   'code, kbd, pre, samp': {
     fontFamily: theme.fonts.code,
   },

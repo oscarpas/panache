@@ -1,51 +1,16 @@
 import panache from '@panache/react'
-import { useRouter } from 'next/router'
 import Link from 'next/link'
-
-export const sidebarIndex = [
-  { 
-    label: 'Panache', 
-    path: '/'
-  },
-  { 
-    label: 'Documentation', 
-    children: [
-      {
-        label: 'Get started', 
-        path: '/docs/get-started'
-      },
-      {
-        label: 'Extend styles', 
-        path: '/docs/extend-styles'
-      },
-      {
-        label: 'Theme and media queries', 
-        path: '/docs/theme-media'
-      },
-      {
-        label: 'Responsive variables', 
-        path: '/docs/responsive-variables'
-      },
-      {
-        label: 'Global styles', 
-        path: '/docs/global'
-      },
-      {
-        label: 'Server side rendering', 
-        path: '/docs/ssr'
-      },
-    ]
-  },
-  { 
-    label: 'API Reference', 
-    path: '/api-ref'
-  },
-]
 
 const Container = panache.div(({ theme }) => ({
   padding: '1rem',
   color: theme.colors.grayMedium,
 }))
+
+export const Sidebar = ({ sidebarIndex, currentPath }) => {
+  return <Container>
+    <List listItems={sidebarIndex} currentPath={currentPath} />
+  </Container>
+}
 
 const ListContainer = panache.ul(({}) => ({
   listStyle: 'none',
@@ -56,11 +21,9 @@ const ListContainer = panache.ul(({}) => ({
   }
 }))
 
-const List = ({ listItems }) => {
-  const { pathname } = useRouter()
-
+const List = ({ listItems, currentPath }) => {
   return <ListContainer>
-    {listItems.map(item => <ListItem key={item.label} isCurrent={item.path === pathname}>
+    {listItems.map(item => <ListItem key={item.label} isCurrent={item.path === currentPath}>
       {item.path && <Link href={item.path}>
         <a>
           <Label>
@@ -69,11 +32,10 @@ const List = ({ listItems }) => {
         </a>
       </Link>}
       {!item.path && <Label>{item.label}</Label>}
-      {item.children && <List listItems={item.children} />}
+      {item.children && <List listItems={item.children} currentPath={currentPath} />}
     </ListItem>)}
   </ListContainer>
 }
-
 
 const Label = panache.span({
   display: 'block',
@@ -92,10 +54,3 @@ const ListItem = panache.li(({ theme, isCurrent }) => ({
     textDecoration: 'none',
   }
 }))
-
-export const Sidebar = ({}) => {
-
-  return <Container>
-    <List listItems={sidebarIndex} />
-  </Container>
-}
