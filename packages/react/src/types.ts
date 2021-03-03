@@ -107,8 +107,12 @@ interface HtmlTags {
   summary?: StyleObject,
 }
 
+export type CssValue = string | number | ResponsiveVariable
+export type ResponsiveValue = [mediaRule: string, cssValue: string]
+export type ResponsiveDefaultValue = String
+export type ResponsiveVariable = Array<ResponsiveDefaultValue | [mediaRule: string, cssValue: string]>
+
 export interface StyleObject extends CSS.Properties, HtmlTags {
-  [propName: string]: any
 }
 
 export type StyleGenerator = (props: React.ComponentProps<any>) => StyleObject

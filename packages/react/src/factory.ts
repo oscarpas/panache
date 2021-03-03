@@ -2,42 +2,52 @@ import * as React from 'react'
 import { sheet } from './sheet'
 import { PanacheContext } from './provider'
 import { StyleGenerator, StyleObject } from './types'
+import { hash } from '@panache/core'
 
-function hash(text: string): string {
-  let hash = 5381
-  let index = text.length
+function createComponentId(
+  styleObject: StyleObject,
+  props: React.ComponentProps<any>,
+  asTarget: string
+): string {
+  const styleIdentifier = JSON.stringify(styleObject)
+  const propsIdentifier = JSON.stringify({ ...props, children: null })
+  const hashedIdentifier = `p${hash(asTarget + styleIdentifier + propsIdentifier)}`
 
-  while (index) {
-    hash = (hash * 33) ^ text.charCodeAt(--index)
-  }
-
-  return String(hash >>> 0)
+  return hashedIdentifier
 }
 
-export function createElement(TargetComponent: string, styles: StyleObject | StyleGenerator) {
-  const PanacheComponent = React.forwardRef((props: React.ComponentProps<any>, ref) => {
+export const extend = (parentComponent) => (styles: StyleObject | StyleGenerator) => {
+  // TODO
+}
+
+export function createComponent(
+  TargetComponent: string,
+  styles: StyleObject | StyleGenerator,
+) {
+  function PanacheComponent(props: React.ComponentProps<any>, ref) {
     const context = React.useContext(PanacheContext)
+    const { className, children, as } = props
+    const asTarget = as ?? TargetComponent
 
     // get style object
     const componentStyleObject = typeof styles === 'function'
       ? styles({ ...context, ...props }) : styles
-
     // Identifer is a hashed combination of the components target, style and props
-    const styleIdentifier = JSON.stringify(componentStyleObject)
-    const propsIdentifier = JSON.stringify({ ...props, children: null })
-    const hashedIdentifier = `p${hash(TargetComponent + styleIdentifier + propsIdentifier)}`
-    const [componentVariationId] = React.useState(hashedIdentifier)
+    const componentVariationId = createComponentId(componentStyleObject, props, asTarget)
 
     const computedProps = {
       ...props,
-      ref,
-      className: [componentVariationId, props.className].join(' ')
+      //ref,
+      className: className ? [componentVariationId, className].join(' ') : componentVariationId
     }
 
     sheet.add(componentStyleObject, componentVariationId)
 
-    return React.createElement(TargetComponent, computedProps, props.children)
-  })
+    return React.createElement(asTarget, computedProps, children)
+  }
+
+  PanacheComponent.Styles = styles
+  PanacheComponent.TargetComponent = TargetComponent
 
   return PanacheComponent
 }

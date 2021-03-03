@@ -1,7 +1,12 @@
 import { parse } from './parser'
 import { StyleObject } from './types'
 
-export function createStyleTag(css: string, componentVariantId) {
+export function createStyleTag(
+  styleObject: StyleObject,
+  componentVariantId: string,
+  isGlobal: boolean
+) {
+  const css = parse(styleObject, isGlobal ? undefined : componentVariantId)
   const parent = document.head
   const style = document.querySelector(`[panache-id="${componentVariantId}"]`)
     || document.createElement('style')
@@ -31,22 +36,21 @@ export class Sheet {
    * – The componentVariantId should be a unique id for the current state of the component,
    *   currently it's a hash of "elementTag + styleObject + props".
    *   This'll need further testing, it might not be robust enough.
-   * – Component style is parsed and cached in this class
+   * – Component style is cached in this class
    *   If this is called and the component variant already exists it'll not be re-added
    * – A style tag is injected if this is called on the client side
    */
   add(styleObject: StyleObject, componentVariantId: string, isGlobal: boolean) {
     const isServerSide = typeof window === 'undefined'
-    const css = parse(styleObject, isGlobal ? undefined : componentVariantId)
 
     if (this.sheet[componentVariantId]) return
 
     this.sheet = {
       ...this.sheet,
-      [componentVariantId]: css
+      [componentVariantId]: styleObject
     }
 
-    if (!isServerSide) createStyleTag(css, componentVariantId)
+    if (!isServerSide) createStyleTag(styleObject, componentVariantId, isGlobal)
   }
 
   get(componentVariantId) {
