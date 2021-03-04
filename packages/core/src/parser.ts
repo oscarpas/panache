@@ -1,4 +1,4 @@
-import { StyleObject } from "./types"
+import { StyleObject } from './types'
 import sortBy from 'lodash-es/sortBy'
 
 const camelToDash = (str: string): string =>

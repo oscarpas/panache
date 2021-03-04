@@ -1,4 +1,7 @@
-export function hash(text: string): string {
+/**
+ * String hashing function based on Daniel J. Bernstein's popular 'times 33' hash algorithm.
+ */
+export function hash(text: string): number {
   let hash = 5381
   let index = text.length
 
@@ -6,5 +9,5 @@ export function hash(text: string): string {
     hash = (hash * 33) ^ text.charCodeAt(--index)
   }
 
-  return String(hash >>> 0)
+  return hash >>> 0
 }
