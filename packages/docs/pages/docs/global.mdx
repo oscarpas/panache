@@ -37,5 +37,15 @@ yarn add @panache/reset
 ```
 
 ```jsx
-import reset from '@panache/reset'
+import { createGlobalStyle } from '@panache/react'
+import withReset from '@panache/reset'
+
+const globalStyles = withReset({ theme }) => ({
+  html: {
+    fontSize: '20px',
+    fontFamily: theme.fonts.primary
+  },
+}))
+
+const GlobalStyle = createGlobalStyle(globalStyles)
 ```

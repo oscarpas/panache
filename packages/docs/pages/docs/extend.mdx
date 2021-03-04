@@ -1,21 +1,24 @@
 # Extend components and share styles
 
-Since your CSS are objects it's easy and intuitive to extend and share styles using the spread operator.
-
 ###  Extend simple style objects with the spread operator 
 
-Extend a simple Panache component.
+Since your CSS are objects it's easy and intuitive to extend and share simple styles using the spread operator. Note that this method only works for simple style objects, not nested objects or components that use a function to access props.
 
 ```jsx
 const MyComponent = panache.div({
-	color: 'blue',
 	backgroundColor: 'gray',
 })
 
-const MyOtherComponent = panache.div({
+const errorStyles = {
+	backgroundColor: 'red',
+	color: 'white'
+}
+
+const MyOtherComponent = panache.div(({ hasError }) => ({
 	...MyComponent.Styles,
-	color: 'red'
-})
+	...hasError && errorStyles,
+	color: 'blue'
+}))
 ```
 
 ### Extend complex style objects
@@ -23,13 +26,14 @@ const MyOtherComponent = panache.div({
 If you have nested styles in your style objects the spread operator will override the entire inherited nested styles. Instead you can use the `extend` function to deep merge your complex style objects.
 
 ```jsx
-const MyComponent = panache.div({
+const MyComponent = panache.div(({ primary }) => ({
 	padding: '15px',
+	fontWeight: primary ? '600' : 'normal',
 	div: {
 		backgroundColor: 'red',
 		color: 'blue'
 	}
-})
+}))
 
 const MyOtherComponent = panache.extend(MyComponent)({
 	div: {
@@ -43,7 +47,7 @@ This will preserve the original `color: blue` rule and also add the new `backgro
 ### Compose styles from multiple components
 
 ```jsx
-const MyComposedComponent = panache.extend([ CompA, CompB ])({
+const MyComposedComponent = panache.extend(CompA, CompB)({
 	padding: '15px',
 	div: {
 		backgroundColor: 'red',
@@ -58,7 +62,7 @@ You can change the element type of a component using the `as` prop.
 
 ```jsx
 const Button = panache.button({
-	border: 'red',
+	border: '2px solid red',
 })
 ```
 

@@ -11,16 +11,16 @@ const index = [
         path: '/docs/get-started'
       },
       {
-        label: 'Extend components', 
-        path: '/docs/extend'
-      },
-      {
         label: 'Theme and media queries', 
         path: '/docs/theme-media'
       },
       {
         label: 'Responsive variables', 
         path: '/docs/responsive-variables'
+      },
+      {
+        label: 'Extend components', 
+        path: '/docs/extend'
       },
       {
         label: 'Global styles', 
@@ -34,7 +34,18 @@ const index = [
   },
   { 
     label: 'API Reference', 
-    path: '/api-ref'
+    path: '/api-ref',
+    children: [
+      {
+        label: '@panache/core',
+      },
+      {
+        label: '@panache/react',
+      },
+      {
+        label: '@panache/reset',
+      },
+    ]
   },
 ]
 

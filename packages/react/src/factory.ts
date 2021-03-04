@@ -20,6 +20,7 @@ function createComponentId(
 /**
  * Given an StyleObject, StyleGenerator or an array of both types
  * this function will merge and return a single StyleObject
+ * @todo deep merge objects to preserve nested styles
  */
 function getStyleObject(
   styles: StyleObject | StyleGenerator | Array<StyleObject|StyleGenerator>,

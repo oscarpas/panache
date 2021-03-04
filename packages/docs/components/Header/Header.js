@@ -31,7 +31,7 @@ export const Header = ({}) => {
   return <Container>
     <Section>
       <Title>Panache</Title>
-      <SubTitle>Styled Objects</SubTitle>
+      <SubTitle>Styled Objects Library</SubTitle>
     </Section>
     <Section>
       <a href="" target="_blank">

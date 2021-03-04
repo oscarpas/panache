@@ -6,9 +6,9 @@ export const theme = {
   colors: {
     primary: ['#111', [media.dark, '#f7fafc']],
     background: ['#fff', [media.dark, '#111']],
-    grayDark: ['#2d3748', [media.dark, '#e2e8f0 !important']],
+    grayDark: ['#2d3748', [media.dark, '#e2e8f0']],
     grayMedium: '#718095',
-    grayLight: ['#edf2f7', [media.dark, '#2d3748 !important']],
+    grayLight: ['#edf2f7', [media.dark, '#2d3748']],
   },
   borderRadius: '0.5rem',
   borders: {

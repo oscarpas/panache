@@ -3,21 +3,83 @@ import { Callout } from '../components/Callout/Callout'
 # Panache
 
 <Callout>
-Panache is currently in alpha, breaking changes may occur
+Panache v1 is not yet released, breaking changes may occur
 </Callout>
 
-Panache.js is a library for writing CSS as React components. Panache is heavily inspired by Styled Components but it lets you write your CSS as Objects. 
+Panache.js is a library for writing CSS as React components. Panache is inspired by Styled Components but it lets you write your CSS as Objects. 
 
 Writing CSS as objects enables additional features such as:
-- **Easy syntax:** One function to access props, themes and media breakpoints.
+- **Easy syntax:** One function to access props, theme and media query rules.
+- **Reponsive variables:** Bind CSS values to one or multiple media query rules.
 - **Share and extend styles:** Easily extend and share style objects across components with the spread operator.
-- **Reponsive variables:** Bind CSS values to one or multiple media breakpoints.
 - **Type safe:** Write type safe styles.
 
 And just like Styled Components it comes with features such as:
+- **Component scoped styles** 
 - **Auto critical CSS**
 - **Dynamic styling based on props**
 - **Easy maintenance:** Styles are coupled to your component
 - ...
 
-Also inspired by glamour and more
+## Motivation
+
+Writing CSS as React components is a great way to handle styles for an app. You get styles that are scoped and coupled to your component. You don't have to worry about unexpected styling due to inheritance and it's easy to maintain your styles when they are coupled to your components. This design pattern is used by several libraries and Panache builds on their great ideas.
+
+Panache uses Styled Objects instead of plain CSS which enables additional features because it's easy to parse and transform objects into CSS.
+
+The main added features and their purpose are described below. These features may change and Panache is currently a proof of concept.
+
+### Easy syntax
+
+Props are easily available, just destructure once. Panache also has first class support for media query rules.
+
+```jsx
+const MyComponent = panache.div(({ theme, media, isActive }) => ({
+  color: theme.colors.primary,
+  padding: '10px',
+  backgroundColor: isActive ? 'white' : 'gray',
+  [media.medium]: {
+    padding: '20px'
+  },
+}))
+```
+
+### Responsive variables
+
+One big feature that Styled Objects and the Panache parser enables is responsive variables. Being able to bind CSS values to multiple media query rules can be very powerful and you'll avoid repeating yourself.
+
+```jsx
+const responsiveVariable = ['10px', ['@media(min-width: 768px', '20px']]
+
+const MyComponent = panache.div({
+  padding: responsiveVariable,
+  marginTop: responsiveVariable
+})
+```
+
+When parsed to CSS:
+
+```css
+.MyComponent {
+  padding: 10px;
+  margin-top: 10px;
+}
+@media(min-width: 768px) {
+  .MyComponent {
+    padding: 20px;
+    margin-top: 20px;
+  }
+}
+```
+
+### Share and extend styles
+
+Todo...
+
+### Type safe
+
+Todo...
+
+## Inspired by
+
+[Styled Components](https://www.styled-components.com/), [Glamorous](https://glamorous.rocks/), [Emotion](https://emotion.sh/)
