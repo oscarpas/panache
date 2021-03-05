@@ -44,16 +44,18 @@ function getStyleObject(
 }
 
 /**
- * Creates a new PanacheComponent which inherits it's styles from an existing component 
- * @todo should be able to pass in multiple existing components? (...components)
- * @todo should be able to pass in Style objects along with components
+ * Creates a new PanacheComponent which inherits it's styles
+ * from one or several source components or style objects
+ *
  * @todo extend third-party components?
  */
-export const extendComponent = (sources: PanacheComponent) =>
+export const extendComponent = (...sources: Array<PanacheComponent|StyleObject>) =>
   (styles: StyleObject | StyleGenerator) => {
-  const parentStyles = sources.Styles
-  const asTarget = sources.TargetComponent
-  return createComponent(asTarget, [parentStyles, styles])
+  const isPanacheComponent = (source: PanacheComponent | StyleObject): source is PanacheComponent =>
+    source.TargetComponent
+  const inheritedStyles = sources.map(s => isPanacheComponent(s) ? s.Styles : s)
+  const asTarget = sources[0].TargetComponent
+  return createComponent(asTarget, [...inheritedStyles, styles])
 }
 
 export function createComponent(
@@ -66,12 +68,10 @@ export function createComponent(
     const asTarget = as ?? TargetComponent
 
     const componentStyleObject = getStyleObject(styles, { ...context, ...props})
-    // Identifer is a hashed combination of the components target, style and props
     const componentVariationId = createComponentId(componentStyleObject, props, asTarget)
 
     const computedProps = {
       ...props,
-      //ref,
       className: className ? [componentVariationId, className].join(' ') : componentVariationId
     }
 
