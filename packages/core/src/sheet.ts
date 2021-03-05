@@ -15,12 +15,6 @@ export function createStyleTag(
   parent.appendChild(style)
 }
 
-export function removeStyleTag(componentVariantId: string) {
-  const el = document.querySelector(`[panache-id="${componentVariantId}"]`)
-  if (el) el.remove()
-}
-
-
 export class Sheet {
   sheet: StyleSheet
 
