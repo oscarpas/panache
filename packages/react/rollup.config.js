@@ -7,9 +7,14 @@ export default [
 		input: 'src/main.ts',
 		external: ['react'],
 		plugins: [
-			typescript(),
+			typescript({
+				strict: true,
+				forceConsistentCasingInFileNames: true,
+				noImplicitReturns: true,
+				noUnusedLocals: true
+			}),
 			resolve({
-				only: [ '@panache/core',]
+				only: ['@panache/core']
 			}),
 		],
 		output: [

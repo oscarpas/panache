@@ -1,5 +1,5 @@
 import { parse } from './parser'
-import { StyleObject } from './types'
+import { StyleObject, StyleSheet } from './types'
 
 export function createStyleTag(
   styleObject: StyleObject,
@@ -20,10 +20,11 @@ export function removeStyleTag(componentVariantId: string) {
   if (el) el.remove()
 }
 
-export class Sheet {
-  sheet: Object
 
-  constructor(sheet: Object | void) {
+export class Sheet {
+  sheet: StyleSheet
+
+  constructor(sheet: StyleSheet | void) {
     this.sheet = sheet || {}
   }
 
@@ -53,7 +54,7 @@ export class Sheet {
     if (!isServerSide) createStyleTag(styleObject, componentVariantId, isGlobal)
   }
 
-  get(componentVariantId) {
+  get(componentVariantId: string) {
     if (componentVariantId) return this.sheet[componentVariantId]
     return this.sheet
   }

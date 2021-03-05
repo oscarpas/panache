@@ -19,7 +19,7 @@ export function parseStyleObject(
   mediaRule: string | void,
 ): Array<StyleItem> {
   const entries = Object.entries(styleObject)
-  let rules = []
+  let rules: Array<StyleItem> = []
 
   for (let i = 0; i < entries.length; i++) {
     const [ key, style ] = entries[i]

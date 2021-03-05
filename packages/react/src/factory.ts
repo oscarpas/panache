@@ -1,10 +1,15 @@
 import * as React from 'react'
 import { sheet } from './sheet'
 import { PanacheContext } from './provider'
-import { StyleGenerator, StyleObject, PanacheComponent } from './types'
+import { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core'
+import {  PanacheComponent } from './types'
 import { hash } from '@panache/core'
+import { mergeObjects } from '@panache/core'
 
-
+/**
+ * Create a unique hashed identifer for a component
+ * using its target type and stringified styles and props
+ */
 function createComponentId(
   styleObject: StyleObject,
   props: React.ComponentProps<any>,
@@ -20,20 +25,21 @@ function createComponentId(
 /**
  * Given an StyleObject, StyleGenerator or an array of both types
  * this function will merge and return a single StyleObject
- * @todo deep merge objects to preserve nested styles
  */
 function getStyleObject(
-  styles: StyleObject | StyleGenerator | Array<StyleObject|StyleGenerator>,
+  styles: Styles,
   props: React.ComponentProps<any>
 ): StyleObject {
-  const isStyleGenerator = (style: StyleObject | StyleGenerator): Boolean =>
+  const isStyleList = (styles: Styles): styles is StyleList =>
+    Array.isArray(styles)
+  const isStyleGenerator = (style: StyleObject | StyleGenerator): style is StyleGenerator =>
     typeof style === 'function'
 
-  return Array.isArray(styles)
-    ? styles.reduce((acc, style) => ({
-      ...acc,
-      ...isStyleGenerator(style) ? style(props) : style
-    }), {})
+  const mergeStyleObjects = (acc: StyleObject, style: StyleGenerator | StyleObject): StyleObject =>
+    mergeObjects(acc, isStyleGenerator(style) ? style(props) : style)
+
+  return isStyleList(styles)
+    ? styles.reduce(mergeStyleObjects, {})
     : isStyleGenerator(styles) ? styles(props) : styles
 }
 
@@ -53,7 +59,7 @@ export function createComponent(
   TargetComponent: string,
   styles: StyleObject | StyleGenerator | Array<StyleObject|StyleGenerator>,
 ): PanacheComponent {
-  function PanacheComponent(props: React.ComponentProps<any>, ref) {
+  function PanacheComponent(props: React.ComponentProps<any>) {
     const context = React.useContext(PanacheContext)
     const { className, children, as } = props
     const asTarget = as ?? TargetComponent

@@ -7,7 +7,12 @@ export default [
 	{
 		input: 'src/main.ts',
 		plugins: [
-			typescript(),
+			typescript({
+				strict: true,
+				forceConsistentCasingInFileNames: true,
+				noImplicitReturns: true,
+				noUnusedLocals: true
+			}),
 			nodeResolve(),
 			terser({
 				output: {
