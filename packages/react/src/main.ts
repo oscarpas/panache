@@ -1,5 +1,5 @@
 import { createComponent, extendComponent } from './factory'
-import { StyleGenerator, StyleObject } from './types'
+import { StyleGenerator, StyleObject } from '@panache/core/src/types'
 import htmlTags from './utils/htmlTags'
 
 const panache = {

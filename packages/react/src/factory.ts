@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { sheet } from './sheet'
 import { PanacheContext } from './provider'
-import { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core'
+import type { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core/src/types'
 import {  PanacheComponent } from './types'
 import { hash } from '@panache/core'
 import { mergeObjects } from '@panache/core'
@@ -23,7 +23,7 @@ function createComponentId(
 }
 
 /**
- * Given an StyleObject, StyleGenerator or an array of both types
+ * Given a StyleObject, a StyleGenerator or an array of both types
  * this function will merge and return a single StyleObject
  */
 function getStyleObject(
@@ -46,12 +46,13 @@ function getStyleObject(
 /**
  * Creates a new PanacheComponent which inherits it's styles from an existing component 
  * @todo should be able to pass in multiple existing components? (...components)
+ * @todo should be able to pass in Style objects along with components
  * @todo extend third-party components?
  */
-export const extendComponent = (components: PanacheComponent) =>
+export const extendComponent = (sources: PanacheComponent) =>
   (styles: StyleObject | StyleGenerator) => {
-  const parentStyles =  components.Styles
-  const asTarget = components.TargetComponent
+  const parentStyles = sources.Styles
+  const asTarget = sources.TargetComponent
   return createComponent(asTarget, [parentStyles, styles])
 }
 

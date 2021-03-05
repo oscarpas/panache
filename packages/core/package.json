@@ -4,7 +4,7 @@
   "module": "dist/index.esm.js",
   "main": "dist/index.cjs.js",
   "license": "MIT",
-  "types": "src/types.ts",
+  "types": "dist/main.d.ts",
   "devDependencies": {
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@rollup/plugin-typescript": "^8.2.0",

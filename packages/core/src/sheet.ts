@@ -4,7 +4,7 @@ import { StyleObject, StyleSheet } from './types'
 export function createStyleTag(
   styleObject: StyleObject,
   componentVariantId: string,
-  isGlobal: boolean
+  isGlobal?: boolean
 ) {
   const css = parse(styleObject, isGlobal ? undefined : componentVariantId)
   const parent = document.head
@@ -41,7 +41,7 @@ export class Sheet {
    *   If this is called and the component variant already exists it'll not be re-added
    * – A style tag is injected if this is called on the client side
    */
-  add(styleObject: StyleObject, componentVariantId: string, isGlobal: boolean) {
+  add(styleObject: StyleObject, componentVariantId: string, isGlobal?: boolean) {
     const isServerSide = typeof window === 'undefined'
 
     if (this.sheet[componentVariantId]) return
@@ -54,7 +54,7 @@ export class Sheet {
     if (!isServerSide) createStyleTag(styleObject, componentVariantId, isGlobal)
   }
 
-  get(componentVariantId: string) {
+  get(componentVariantId?: string) {
     if (componentVariantId) return this.sheet[componentVariantId]
     return this.sheet
   }

@@ -1,7 +1,7 @@
 import * as React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { Sheet } from '@panache/core'
-import { StyleGenerator, StyleObject } from './types'
+import type { StyleGenerator, StyleObject } from '@panache/core/src/types'
 import { PanacheContext } from './provider'
 
 export const sheet = new Sheet()
