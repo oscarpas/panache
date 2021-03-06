@@ -1,4 +1,4 @@
-import * as CSS from 'csstype'
+import * as CSS from './types/css'
 
 interface HtmlTags {
   address?: StyleObject,
@@ -112,7 +112,10 @@ export interface StyleSheet {
   [componentVariantId: string]: StyleObject
 }
 
-export interface StyleObject extends CSS.Properties, HtmlTags {}
+export interface StyleObject extends CSS.Properties, HtmlTags {
+  [MediaQueryOrSelector: string]: any
+}
+
 export type StyleGenerator = (props: React.ComponentProps<any>) => StyleObject
 export type StyleList = Array<StyleObject|StyleGenerator>
 export type Styles = StyleObject | StyleGenerator | StyleList
