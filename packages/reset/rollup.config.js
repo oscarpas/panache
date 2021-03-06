@@ -5,7 +5,7 @@ export default [
 	{
 		input: 'src/main.ts',
 		plugins: [
-			typescript()
+			typescript({ tsconfig: './tsconfig.json' }),
 		],
 		output: [
 			{ file: pkg.main, format: 'cjs' },

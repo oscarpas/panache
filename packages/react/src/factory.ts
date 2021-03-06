@@ -85,3 +85,17 @@ export function createComponent(
 
   return PanacheComponent
 }
+
+export function createGlobalStyle(style: StyleObject | StyleGenerator, reset?: StyleObject) {
+  function GlobalStyleComponent(props: React.ComponentProps<any>) {
+    const context = React.useContext(PanacheContext)
+    const styles = reset ? [reset, style] : style
+    const componentStyleObject = getStyleObject(styles, {...context, ...props})
+
+    sheet.add(componentStyleObject, 'global', true)
+
+    return null
+  }
+
+  return GlobalStyleComponent
+}

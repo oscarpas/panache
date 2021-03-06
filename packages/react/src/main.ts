@@ -9,6 +9,6 @@ const panache = {
 	extend: extendComponent
 }
 
-export { createGlobalStyle } from './sheet'
+export { createGlobalStyle } from './factory'
 export { PanacheProvider, PanacheContext } from './provider'
 export default panache

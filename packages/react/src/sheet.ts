@@ -1,24 +1,8 @@
 import * as React from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { Sheet } from '@panache/core'
-import type { StyleGenerator, StyleObject } from '@panache/core/src/types'
-import { PanacheContext } from './provider'
 
 export const sheet = new Sheet()
-
-export function createGlobalStyle(styles: StyleObject | StyleGenerator) {
-  const GlobalStyle = React.forwardRef((props: React.ComponentProps<any>, ref) => {
-    const context = React.useContext(PanacheContext)
-    const componentStyleObject = typeof styles === 'function'
-      ? styles({ ...context, ...props }) : styles
-
-    sheet.add(componentStyleObject, 'global', true)
-
-    return null
-  })
-
-  return GlobalStyle
-}
 
 export function getServerSheet() {
   const sheetStyles = sheet.get()
