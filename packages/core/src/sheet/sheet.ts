@@ -1,5 +1,5 @@
-import { parse } from './parser'
-import { StyleObject, StyleSheet } from './types'
+import { parse } from '../parser/parser'
+import { StyleObject, StyleSheet } from '../types'
 
 export function createStyleTag(
   styleObject: StyleObject,

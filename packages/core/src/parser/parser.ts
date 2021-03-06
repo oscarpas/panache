@@ -1,8 +1,6 @@
-import { StyleObject } from './types'
+import { StyleObject } from '../types'
 import sortBy from 'lodash-es/sortBy'
-
-const camelToDash = (str: string): string =>
-  str.replace(/([A-Z])/g, ($1) => "-"+$1.toLowerCase())
+import { camelToDash } from '../utils/string'
 
 interface StyleItem {
   selector: string,
@@ -75,48 +73,81 @@ export function parseStyleObject(
     }
   }
 
-  return rules
-}
-
-type ComponentSheet = {
-  [key: string]: any
-}
-
-export function parse(styleObject: StyleObject, componentVariantId: string | void): string {
-  const parentClasses = componentVariantId ? [`.${componentVariantId}`] : []
-  const rulesDef = parseStyleObject(styleObject, parentClasses)
   // Put rules with media queries at the end
-  const rules = sortBy(rulesDef, r => r.media !== undefined)
+  const rulesSorted = sortBy(rules, r => r.media !== undefined)
+
+  return rulesSorted
+}
+
+type CssRules = Array<string>
+
+interface MediaRules {
+  [selector: string]: CssRules
+}
+
+interface ComponentSheet {
+  [MediaQueryOrSelector: string]: CssRules | MediaRules
+}
+
+/**
+ * Parse an array of StyleItems into a ComponentSheet
+ * where rules are grouped by selector and media query
+ */
+export function parseStyleItems(rules: Array<StyleItem>) {
   let componentSheet = {} as ComponentSheet
 
   // Group CSS rules by selector and media query
   for (let i = 0; i < rules.length; i++) {
     const { media, selector } = rules[i]
     const [cssProperty, cssValue] = rules[i].values
-    const cssString = `${camelToDash(cssProperty)}:${cssValue}`
+    const cssRule = `${camelToDash(cssProperty)}:${cssValue}`
 
-    componentSheet[media || selector] = !media
-      ? [
+    // Add css rule to selector
+    if (!media) {
+      componentSheet[selector] = [
+        // @ts-ignore: should type guard this
         ...componentSheet[selector] || [],
-        cssString
+        cssRule
       ]
-      : {
+    }
+    // Insert MediaRules
+    else {
+      componentSheet[media] = {
         ...componentSheet[media],
         [selector]: [ 
+          // @ts-ignore: should type guard this
           ...componentSheet?.[media]?.[selector] || [],
-          cssString
+          cssRule
         ]
       }
+    }
   }
 
-  // Convert component sheet to string
-  const componentSheetToString = (sheet: object): string => Object
+  return componentSheet
+}
+
+/**
+ * Convert a ComponentSheet into a string of valid CSS 
+ */
+export function componentSheetToString(sheet: ComponentSheet): string {
+  return Object
     .entries(sheet)
     .map(([key, values]) => {
       if (!Array.isArray(values)) return `${key}{${componentSheetToString(values)}}`
       return `${key}{${values.join(';')}}`
     })
     .join(' ')
+}
 
-  return componentSheetToString(componentSheet)
+/**
+ * Run parser functions to convert a StyleObject into valid CSS
+ * @todo performance can probably be improved by running less iterations
+ */
+export function parse(styleObject: StyleObject, componentVariantId: string | void): string {
+  const parentClasses = componentVariantId ? [`.${componentVariantId}`] : []
+  const rules = parseStyleObject(styleObject, parentClasses)
+  const componentSheet = parseStyleItems(rules)
+  const componentSheetCss = componentSheetToString(componentSheet)
+
+  return componentSheetCss
 }

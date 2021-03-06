@@ -2,7 +2,7 @@
  * @jest-environment jsdom
  */
 
-import { Sheet } from './sheet'
+import { Sheet } from '../sheet/sheet'
 
 const styleObject = { color: 'red' }
 const styleId = 'p123'
