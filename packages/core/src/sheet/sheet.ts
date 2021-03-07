@@ -1,29 +1,30 @@
 import { parse } from '../parser/parser'
 import { StyleObject, StyleSheet } from '../types'
 
-export function createStyleTag(
-  styleObject: StyleObject,
-  componentVariantId: string,
-  isGlobal?: boolean
-) {
-  const css = parse(styleObject, isGlobal ? undefined : componentVariantId)
-  const parent = document.head
-  const style = document.querySelector(`[panache-id="${componentVariantId}"]`)
-    || document.createElement('style')
-  style.setAttribute('panache-id', componentVariantId)
-  style.textContent = css
-  parent.appendChild(style)
-}
-
 export class Sheet {
   sheet: StyleSheet
 
-  constructor(sheet: StyleSheet | void) {
-    this.sheet = sheet || {}
+  constructor() {
+    this.sheet = {}
   }
 
-  hydrate() {
-    // TODO
+  /**
+   * @todo right now all styles are re-injected on client side render,
+   * instead we should rehydrate the sheet with the existing component styles
+   */
+  rehydrate() {
+  }
+
+  /**
+   * Inject a components style into the dom
+   */
+  inject(css: string, componentVariantId: string): void {
+    const parent = document.head
+    const style = document.querySelector(`[panache-id="${componentVariantId}"]`)
+      || document.createElement('style')
+    style.setAttribute('panache-id', componentVariantId)
+    style.textContent = css
+    parent.appendChild(style)
   }
 
   /**
@@ -36,18 +37,22 @@ export class Sheet {
    * – A style tag is injected if this is called on the client side
    */
   add(styleObject: StyleObject, componentVariantId: string, isGlobal?: boolean) {
-    const isServerSide = typeof window === 'undefined'
-
     if (this.sheet[componentVariantId]) return
+
+    const isServerSide = typeof window === 'undefined'
+    const css = parse(styleObject, isGlobal ? undefined : componentVariantId)
 
     this.sheet = {
       ...this.sheet,
-      [componentVariantId]: styleObject
+      [componentVariantId]: css
     }
 
-    if (!isServerSide) createStyleTag(styleObject, componentVariantId, isGlobal)
+    if (!isServerSide) this.inject(css, componentVariantId)
   }
 
+  /**
+   * Return entire sheet or styles of a single component
+   */
   get(componentVariantId?: string) {
     if (componentVariantId) return this.sheet[componentVariantId]
     return this.sheet

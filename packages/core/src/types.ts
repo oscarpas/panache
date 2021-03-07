@@ -109,11 +109,11 @@ interface HtmlTags {
 
 
 export interface StyleSheet {
-  [componentVariantId: string]: StyleObject
+  [componentVariantId: string]: string
 }
 
 export interface StyleObject extends CSS.Properties, HtmlTags {
-  [MediaQueryOrSelector: string]: any
+  [MediaQueryOrSelector: string]: StyleObject | any
 }
 
 export type StyleGenerator = (props: React.ComponentProps<any>) => StyleObject
@@ -122,5 +122,5 @@ export type Styles = StyleObject | StyleGenerator | StyleList
 
 export type CssValue = string | number | ResponsiveVariable
 export type ResponsiveValue = [mediaRule: string, cssValue: string]
-export type ResponsiveDefaultValue = String
+export type ResponsiveDefaultValue = string
 export type ResponsiveVariable = Array<ResponsiveDefaultValue | ResponsiveValue>

@@ -1,5 +1,4 @@
-import * as React from 'react'
-import ReactDOMServer from 'react-dom/server'
+import React from 'react'
 import { Sheet } from '@panache/core'
 
 export const sheet = new Sheet()
@@ -11,9 +10,4 @@ export function getServerSheet() {
     .entries(sheetStyles)
     .map(([cssClass, cssRules]) =>
       React.createElement('style', { className: cssClass, key: cssClass }, cssRules))
-}
-
-export const collectStyles = (App: any) => {
-  ReactDOMServer.renderToStaticMarkup(App)
-  return App
 }
