@@ -28,6 +28,8 @@ Then add the `GlobalStyle` at the top of your app tree, but inside your provider
 
 ### Reset CSS
 
+Panache has a helper package with a CSS reset based on Eric Meyers famous reset file, but formatted as a Style Object. To use the reset first install the package:
+
 ```bash
 # with npm
 npm install --save @panache/reset
@@ -36,16 +38,20 @@ npm install --save @panache/reset
 yarn add @panache/reset
 ```
 
+Then import and pass the reset to `createGlobalStyle` as the second argument. This will merge the reset with your own global styles. Your styles will take precedent if you target the same selector and CSS property.
+
 ```jsx
 import { createGlobalStyle } from '@panache/react'
-import withReset from '@panache/reset'
+import reset from '@panache/reset'
 
-const globalStyles = withReset({ theme }) => ({
+const globalStyles = ({ theme }) => ({
   html: {
     fontSize: '20px',
     fontFamily: theme.fonts.primary
   },
-}))
+})
 
-const GlobalStyle = createGlobalStyle(globalStyles)
+const GlobalStyle = createGlobalStyle(globalStyles, reset)
 ```
+
+If you prefer another reset you can also pass in your own as long as it's formatted as a Styled Object.

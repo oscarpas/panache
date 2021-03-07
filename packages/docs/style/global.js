@@ -1,19 +1,18 @@
 import { createGlobalStyle } from '@panache/react'
 import reset from '@panache/reset'
 
-const GlobalStyle = createGlobalStyle(({ theme }) => ({
-  ...reset,
+const globalStyles = ({ theme }) => ({
   html: {
     fontFamily: theme.fonts.primary,
     color: theme.colors.primary,
     backgroundColor: theme.colors.background,
     fontSize: '16px',
-    lineHeight: '1.75rem',
     '-moz-osx-font-smoothing': 'auto',
     '-webkit-font-smoothing': 'auto',
   },
   body: {
     fontSize: '1rem',
+    lineHeight: '1.75rem',
   },
   ['*, :after, :before']: {
     boxSizing: 'border-box'
@@ -43,6 +42,8 @@ const GlobalStyle = createGlobalStyle(({ theme }) => ({
       marginTop: '1.5rem'
     }
   },
-}))
+})
+
+const GlobalStyle = createGlobalStyle(globalStyles, reset)
 
 export default GlobalStyle

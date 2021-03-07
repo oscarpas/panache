@@ -24,10 +24,10 @@ const media = {
 </PanacheProvider>
 ```
 
-You can then access the theme and media objects further down the component tree.
+You can then access the theme and media objects as props further down the component tree.
 
 ```jsx
-const MyComponent = lib.div(({ theme, media }) => ({
+const MyComponent = panache.div(({ theme, media }) => ({
   color: theme.colors.primary,
   fontSize: '18px',
   [media.small]: {

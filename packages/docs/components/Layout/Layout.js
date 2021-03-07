@@ -23,7 +23,8 @@ const MainContainer = panache.main({
 })
 
 export const Layout = ({ children }) => {
-  const { pathname } = useRouter()
+  const router = useRouter()
+  const pathname = router?.pathname
 
   return <Container>
     <Header />

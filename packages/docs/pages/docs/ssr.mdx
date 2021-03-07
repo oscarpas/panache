@@ -1,1 +1,56 @@
 # Server side rendering
+
+Server side rendering of styles is supported, exactly how you enable it depends on your SSR framework.
+
+First you need to run `ReactDOMServer.renderToStaticMarkup` which renders your App so Panache can collect all the styles. Pass your entire App tree to as an argument,
+
+```jsx
+import ReactDOMServer from 'react-dom/server'
+...
+ReactDOMServer.renderToStaticMarkup(<App {...props} />)
+```
+
+Then you use `getServerSheet` to get all the collected styles as `<style>` elements:
+
+```jsx
+import { getServerSheet } from '@panache/react'
+...
+const styleElements = getServerSheet(<App {...props} />)
+```
+
+Then you just output the styles in your `<head>`.
+
+
+## Next.js example
+
+In your `pages/_document.js` file:
+
+```jsx
+import Document from 'next/document'
+import { getServerSheet } from '@panache/react'
+import ReactDOMServer from 'react-dom/server'
+
+export default class MyDocument extends Document {
+  static async getInitialProps(ctx) {
+    const originalRenderPage = ctx.renderPage
+
+    ctx.renderPage = () => originalRenderPage({
+      enhanceApp: (App) => (props) => {
+        ReactDOMServer.renderToStaticMarkup(<App {...props} />)
+        return App
+      },
+    })
+
+    const initialProps = await Document.getInitialProps(ctx)
+    return {
+      ...initialProps,
+      styles: (
+        <>
+          {initialProps.styles}
+          {getServerSheet()}
+        </>
+      ),
+    }
+  }
+}
+```
