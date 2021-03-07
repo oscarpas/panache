@@ -1,8 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import { sheet } from './sheet'
 import { PanacheContext } from './provider'
 import type { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core/dist/types'
-import type { PanacheComponent } from './types'
 import { hash, mergeObjects } from '@panache/core'
 import isPropValid from '@emotion/is-prop-valid'
 
@@ -52,10 +51,18 @@ function getStyleObject(
 export const extendComponent = (...sources: Array<PanacheComponent|StyleObject>) =>
   (styles: StyleObject | StyleGenerator) => {
   const isPanacheComponent = (source: PanacheComponent | StyleObject): source is PanacheComponent =>
-    source.Type
+    typeof source === 'function'
+
   const inheritedStyles = sources.map(s => isPanacheComponent(s) ? s.Styles : s)
-  const asTarget = sources[0].Type
+  const asTarget = isPanacheComponent(sources[0]) ? sources[0].Type : 'div'
+  // @ts-ignore: should type guard this
   return createComponent(asTarget, [...inheritedStyles, styles])
+}
+
+export interface PanacheComponent {
+  (props: React.ComponentProps<any>)
+  Styles?: StyleObject | StyleGenerator | Array<StyleObject|StyleGenerator>
+  Type?: string
 }
 
 /**
@@ -65,7 +72,9 @@ export function createComponent(
   type: string,
   styles: StyleObject | StyleGenerator | Array<StyleObject|StyleGenerator>,
 ): PanacheComponent {
-  function PanacheComponent(props: React.ComponentProps<any>) {
+  let PanacheComponent: PanacheComponent
+
+  PanacheComponent = function(props: React.ComponentProps<any>) {
     const context = React.useContext(PanacheContext)
     const { className, children, as, theme, media, ...rest } = props
     const asTarget = as ?? type
