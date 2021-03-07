@@ -1,14 +1,15 @@
+import { StyleObject } from '@panache/core/src/types'
 import React from 'react'
 
 interface IPanacheContext {
-  theme?: object
+  theme?: StyleObject
   media?: object
 }
 
 export const PanacheContext = React.createContext<IPanacheContext>({})
 
 type ProviderProps = {
-  theme: object,
+  theme: StyleObject,
   media: object,
   children: React.ReactNode
 }

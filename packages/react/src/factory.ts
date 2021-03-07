@@ -1,10 +1,10 @@
 import * as React from 'react'
 import { sheet } from './sheet'
 import { PanacheContext } from './provider'
-import type { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core/src/types'
-import {  PanacheComponent } from './types'
-import { hash } from '@panache/core'
-import { mergeObjects } from '@panache/core'
+import type { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core/dist/types'
+import type { PanacheComponent } from './types'
+import { hash, mergeObjects } from '@panache/core'
+import isPropValid from '@emotion/is-prop-valid'
 
 /**
  * Create a unique hashed identifer for a component
@@ -52,26 +52,34 @@ function getStyleObject(
 export const extendComponent = (...sources: Array<PanacheComponent|StyleObject>) =>
   (styles: StyleObject | StyleGenerator) => {
   const isPanacheComponent = (source: PanacheComponent | StyleObject): source is PanacheComponent =>
-    source.TargetComponent
+    source.Type
   const inheritedStyles = sources.map(s => isPanacheComponent(s) ? s.Styles : s)
-  const asTarget = sources[0].TargetComponent
+  const asTarget = sources[0].Type
   return createComponent(asTarget, [...inheritedStyles, styles])
 }
 
+/**
+ * Create a react component styled with StyleObject(s)
+ */
 export function createComponent(
-  TargetComponent: string,
+  type: string,
   styles: StyleObject | StyleGenerator | Array<StyleObject|StyleGenerator>,
 ): PanacheComponent {
   function PanacheComponent(props: React.ComponentProps<any>) {
     const context = React.useContext(PanacheContext)
-    const { className, children, as } = props
-    const asTarget = as ?? TargetComponent
+    const { className, children, as, theme, media, ...rest } = props
+    const asTarget = as ?? type
 
     const componentStyleObject = getStyleObject(styles, { ...context, ...props})
     const componentVariationId = createComponentId(componentStyleObject, props, asTarget)
 
+    const validProps = Object.entries(rest).reduce((acc, [key, value]) => ({
+      ...acc,
+      ...isPropValid(key) ? { [key]: value } : undefined
+    }), {})
+
     const computedProps = {
-      ...props,
+      ...validProps,
       className: className ? [componentVariationId, className].join(' ') : componentVariationId
     }
 
@@ -81,7 +89,7 @@ export function createComponent(
   }
 
   PanacheComponent.Styles = styles
-  PanacheComponent.TargetComponent = TargetComponent
+  PanacheComponent.Type= type
 
   return PanacheComponent
 }

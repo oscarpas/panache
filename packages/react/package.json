@@ -33,5 +33,8 @@
   },
   "files": [
     "dist"
-  ]
+  ],
+  "dependencies": {
+    "@emotion/is-prop-valid": "^1.1.0"
+  }
 }
