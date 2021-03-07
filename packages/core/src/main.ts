@@ -1,4 +1,4 @@
 export { parse } from './parser/parser'
-export { Sheet } from './sheet/sheet'
-export { hash } from './utils/hash'
-export { mergeObjects } from './utils/merge'
+export { default as Sheet } from './sheet/sheet'
+export { default as hash } from './utils/hash'
+export { default as mergeObjects } from './utils/merge'

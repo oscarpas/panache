@@ -1,7 +1,8 @@
 import { parse } from '../parser/parser'
 import { StyleObject, StyleSheet } from '../types'
 
-export class Sheet {
+/* eslint class-methods-use-this: "off" */
+class Sheet {
   sheet: StyleSheet
 
   constructor() {
@@ -31,7 +32,6 @@ export class Sheet {
    * Adds a components style to the sheet
    * – The componentVariantId should be a unique id for the current state of the component,
    *   currently it's a hash of "elementTag + styleObject + props".
-   *   This'll need further testing, it might not be robust enough.
    * – Component style is cached in this class
    *   If this is called and the component variant already exists it'll not be re-added
    * – A style tag is injected if this is called on the client side
@@ -44,7 +44,7 @@ export class Sheet {
 
     this.sheet = {
       ...this.sheet,
-      [componentVariantId]: css
+      [componentVariantId]: css,
     }
 
     if (!isServerSide) this.inject(css, componentVariantId)
@@ -58,3 +58,5 @@ export class Sheet {
     return this.sheet
   }
 }
+
+export default Sheet

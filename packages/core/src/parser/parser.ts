@@ -1,6 +1,6 @@
-import { StyleObject } from '../types'
 import sortBy from 'lodash-es/sortBy'
-import { camelToDash } from '../utils/string'
+import { StyleObject } from '../types'
+import camelToDash from '../utils/string'
 
 interface StyleItem {
   selector: string,
@@ -17,10 +17,10 @@ export function parseStyleObject(
   mediaRule: string | void,
 ): Array<StyleItem> {
   const entries = Object.entries(styleObject)
-  let rules: Array<StyleItem> = []
+  const rules: Array<StyleItem> = []
 
   for (let i = 0; i < entries.length; i++) {
-    const [ key, style ] = entries[i]
+    const [key, style] = entries[i]
 
     // If style is an array it means it's a responsive variable
     if (Array.isArray(style)) {
@@ -37,44 +37,41 @@ export function parseStyleObject(
         if (typeof style[j] === 'string') rules.push({
           selector,
           values: [property, style[j]],
-          media: undefined
+          media: undefined,
         })
 
         // Otherwise it's a value bound to a media query in this form: [media, value]
         else rules.push({
           selector,
           values: [property, style[j][1]],
-          media: style[j][0]
+          media: style[j][0],
         })
       }
     }
-
     // Recursively parse if style is an object
     else if (typeof style === 'object') {
       const isMediaObject = key.includes('@media')
       // Add media rule to object if current object is media,
       // or if inherited from parent
-      const currentMediaRule = isMediaObject ? key : mediaRule
-        ? mediaRule : undefined
+      const currentMediaRule = isMediaObject ? key : mediaRule || undefined
 
       // Don't add current key as class if it's a media object
       const currentClass = isMediaObject ? [] : [key]
       const classes = [...parentClasses, ...currentClass]
       rules.push(...parseStyleObject(style, classes, currentMediaRule))
     }
-
     // If it's not an object we can add it as a StyleItem
     else {
       rules.push({
         selector: parentClasses.join(' ').replace(' &', ''),
         values: entries[i],
-        media: mediaRule
+        media: mediaRule,
       })
     }
   }
 
   // Put rules with media queries at the end
-  const rulesSorted = sortBy(rules, r => r.media !== undefined)
+  const rulesSorted = sortBy(rules, (r) => r.media !== undefined)
 
   return rulesSorted
 }
@@ -94,7 +91,7 @@ interface ComponentSheet {
  * where rules are grouped by selector and media query
  */
 export function parseStyleItems(rules: Array<StyleItem>) {
-  let componentSheet = {} as ComponentSheet
+  const componentSheet = {} as ComponentSheet
 
   // Group CSS rules by selector and media query
   for (let i = 0; i < rules.length; i++) {
@@ -107,18 +104,18 @@ export function parseStyleItems(rules: Array<StyleItem>) {
       componentSheet[selector] = [
         // @ts-ignore: should type guard this
         ...componentSheet[selector] || [],
-        cssRule
+        cssRule,
       ]
     }
     // Insert MediaRules
     else {
       componentSheet[media] = {
         ...componentSheet[media],
-        [selector]: [ 
+        [selector]: [
           // @ts-ignore: should type guard this
           ...componentSheet?.[media]?.[selector] || [],
-          cssRule
-        ]
+          cssRule,
+        ],
       }
     }
   }
@@ -127,7 +124,7 @@ export function parseStyleItems(rules: Array<StyleItem>) {
 }
 
 /**
- * Convert a ComponentSheet into a string of valid CSS 
+ * Convert a ComponentSheet into a string of valid CSS
  */
 export function componentSheetToString(sheet: ComponentSheet): string {
   return Object

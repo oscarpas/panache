@@ -107,7 +107,6 @@ interface HtmlTags {
   summary?: StyleObject,
 }
 
-
 export interface StyleSheet {
   [componentVariantId: string]: string
 }

@@ -2,10 +2,10 @@
  * @jest-environment jsdom
  */
 
-import { Sheet } from '../sheet/sheet'
+import Sheet from '../sheet/sheet'
 
-const styleObject = { color: 'red' }
 const styleId = 'p123'
+const styleObject = { color: 'red' }
 const globalStyle = { body: { color: 'red' } }
 const globalId = 'global'
 
@@ -19,7 +19,8 @@ describe('sheet add method', () => {
   it('saves style to sheet', () => {
     sheet.add(styleObject, styleId)
     const savedStyle = sheet.sheet[styleId]
-    expect(styleObject).toMatchObject(savedStyle)
+    const expected = `.${styleId}{color:red}`
+    expect(savedStyle).toEqual(expected)
   })
 
   it('injects component styles into dom correctly', () => {
@@ -40,7 +41,7 @@ describe('sheet add method', () => {
     sheet.add(styleObject, styleId)
     sheet.add({ color: 'green'}, styleId)
     const savedStyle = sheet.sheet[styleId]
-    expect(styleObject).toEqual(savedStyle)
+    expect(savedStyle).toEqual(`.${styleId}{color:red}`)
   })
 })
 
@@ -49,18 +50,19 @@ describe('sheet get method', () => {
 
   beforeEach(() => {
     sheet = new Sheet()
-    sheet.add(globalStyle, globalId)
+    sheet.add(globalStyle, globalId, true)
     sheet.add(styleObject, styleId)
   })
 
   it('returns entire sheet', () => {
     const allStyles = sheet.get()
-    expect(styleObject).toMatchObject(allStyles[styleId])
-    expect(globalStyle).toMatchObject(allStyles[globalId])
+    expect(Object.keys(allStyles).length).toEqual(2)
+    expect(allStyles[styleId]).toEqual('.p123{color:red}')
+    expect(allStyles[globalId]).toEqual('body{color:red}')
   })
 
   it('returns a single component style', () => {
     const componentStyle = sheet.get(styleId)
-    expect(styleObject).toMatchObject(componentStyle)
+    expect(componentStyle).toEqual('.p123{color:red}')
   })
 })
