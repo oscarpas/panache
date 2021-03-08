@@ -8,6 +8,6 @@ export function getServerSheet() {
 
   return Object
     .entries(sheetStyles)
-    .map(([cssClass, cssRules]) =>
-      React.createElement('style', { className: cssClass, key: cssClass }, cssRules))
+    .map(([panacheId, css]) =>
+      React.createElement('style', { 'panache-id': panacheId, key: panacheId }, css))
 }

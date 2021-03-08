@@ -5,15 +5,34 @@ import { StyleObject, StyleSheet } from '../types'
 class Sheet {
   sheet: StyleSheet
 
+  shouldRehydrate: boolean
+
   constructor() {
     this.sheet = {}
+    this.shouldRehydrate = typeof window !== 'undefined'
+
+    if (this.shouldRehydrate) this.rehydrate()
   }
 
   /**
-   * @todo right now all styles are re-injected on client side render,
-   * instead we should rehydrate the sheet with the existing component styles
+   * Rehydrate sheet on the client side
    */
   rehydrate() {
+    const styles = document.querySelectorAll('style[panache-id]')
+
+    for (let i = 0; i < styles.length; i++) {
+      const id = styles[i].getAttribute('panache-id')
+      const css = styles[i].innerHTML
+
+      if (!id) continue
+
+      this.sheet = {
+        ...this.sheet,
+        [id]: css,
+      }
+    }
+
+    this.shouldRehydrate = false
   }
 
   /**
