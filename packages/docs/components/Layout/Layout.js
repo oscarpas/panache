@@ -4,6 +4,7 @@ import { Footer } from '../Footer/Footer'
 import { Header } from '../Header/Header'
 import navIndex from '../../constants/nav'
 import { useRouter } from 'next/router'
+import { Pagination} from '../Pagination/Pagination'
 
 const Container = panache.div({
   display: 'flex',
@@ -13,7 +14,7 @@ const Container = panache.div({
 const SidebarContainer = panache.aside(({ theme }) => ({
   width: '100%',
   maxWidth: '300px',
-  borderRight: theme.borders.thin,
+  borderRight: theme.borders.faint,
 }))
 
 const MainContainer = panache.main({
@@ -33,6 +34,7 @@ export const Layout = ({ children }) => {
     </SidebarContainer>
     <MainContainer>
       {children}
+      <Pagination currentPath={pathname} />
       <Footer currentPath={pathname} />
     </MainContainer>
   </Container>

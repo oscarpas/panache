@@ -34,7 +34,6 @@ const index = [
   },
   { 
     label: 'API Reference', 
-    path: '/api-ref',
     children: [
       {
         label: '@panache/core',

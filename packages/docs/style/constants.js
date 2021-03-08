@@ -12,7 +12,8 @@ export const theme = {
   },
   borderRadius: '0.5rem',
   borders: {
-    thin: ['1px solid #edf2f7', [media.dark, '1px solid #1a202c']],
+    faint: ['1px solid #edf2f7', [media.dark, '1px solid #1a202c']],
+    strong: ['2px solid #111', [media.dark, '1px solid #f7fafc']],
   },
   fonts: {
     primary: 'ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica Neue,Arial,Noto Sans,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol,Noto Color Emoji',

@@ -9,6 +9,9 @@ const styleObject = { color: 'red' }
 const globalStyle = { body: { color: 'red' } }
 const globalId = 'global'
 
+/**
+ * @todo: test server/client
+ */
 describe('sheet add method', () => {
   let sheet
 

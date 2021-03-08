@@ -4,7 +4,7 @@ import { Github } from '../Icons/Icons'
 const Container = panache.header(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  borderBottom: theme.borders.thin,
+  borderBottom: theme.borders.faint,
   width: '100%',
   padding: '15px 20px',
 }))
@@ -34,7 +34,7 @@ export const Header = ({}) => {
       <SubTitle>Styled Objects Library</SubTitle>
     </Section>
     <Section>
-      <a href="" target="_blank">
+      <a href="https://github.com/oscarpas/panache" target="_blank">
         <Github />
       </a>
     </Section>

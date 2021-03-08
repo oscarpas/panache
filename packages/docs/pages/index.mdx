@@ -1,9 +1,11 @@
 import { Callout } from '../components/Callout/Callout'
+import { Button } from '../components/Button/Button'
+import Link from 'next/link'
 
 # Panache
 
 <Callout>
-Panache v1 is not yet released, breaking changes may occur
+  Version 1 is not yet relesed, breaking changes may occur and there are known limitations.
 </Callout>
 
 Panache.js is a library for writing CSS as React components. Panache is inspired by Styled Components but it lets you write your CSS as Objects. 
@@ -19,7 +21,20 @@ And just like Styled Components it comes with features such as:
 - **Auto critical CSS**
 - **Dynamic styling based on props**
 - **Easy maintenance:** Styles are coupled to your component
-- ...
+
+<Button primary>
+  <Link href="/docs/get-started">
+    <a>
+      Documentation
+    </a>
+  </Link>
+</Button>
+
+<Button>
+  <a href="https://github.com/oscarpas/panache" target="_blank">
+    Github
+  </a>
+</Button>
 
 ## Motivation
 

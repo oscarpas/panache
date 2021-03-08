@@ -9,7 +9,7 @@ export default class MyDocument extends Document {
     ctx.renderPage = () => originalRenderPage({
       enhanceApp: (App) => (props) => {
         ReactDOMServer.renderToStaticMarkup(<App {...props} />)
-        return App
+        return <App {...props} />
       },
     })
 

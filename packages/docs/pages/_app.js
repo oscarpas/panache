@@ -6,6 +6,7 @@ import { Ul } from '../components/Elements/Elements'
 import CodeBlock from '../components/CodeBlock/CodeBlock'
 import GlobalStyle from '../style/global'
 import { media, theme } from '../style/constants'
+import { Button } from '../components/Button/Button'
 
 const components = {
   p: props => <p {...props}/>,
@@ -13,7 +14,8 @@ const components = {
   h2: props => <Heading2 {...props}/>,
   h3: props => <Heading3 {...props}/>,
   pre: props => <CodeBlock {...props} />,
-  ul: props => <Ul {...props} />
+  ul: props => <Ul {...props} />,
+  button: props => <Button {...props} />
 }
 
 export default function App({ Component, pageProps }) {

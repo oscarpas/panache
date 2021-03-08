@@ -2,7 +2,7 @@
 
 Server side rendering of styles is supported, exactly how you enable it depends on your SSR framework.
 
-First you need to run `ReactDOMServer.renderToStaticMarkup` which renders your App so Panache can collect all the styles. Pass your entire App tree to as an argument,
+First you need to run `ReactDOMServer.renderToStaticMarkup` which renders your App so Panache can collect all the styles. Pass your entire App tree to as an argument:
 
 ```jsx
 import ReactDOMServer from 'react-dom/server'
@@ -37,7 +37,7 @@ export default class MyDocument extends Document {
     ctx.renderPage = () => originalRenderPage({
       enhanceApp: (App) => (props) => {
         ReactDOMServer.renderToStaticMarkup(<App {...props} />)
-        return App
+        return <App {...props} />
       },
     })
 

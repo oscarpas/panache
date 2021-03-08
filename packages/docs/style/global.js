@@ -34,6 +34,9 @@ const globalStyles = ({ theme }) => ({
     color: theme.colors.grayDark,
     backgroundColor: theme.colors.grayLight,
   },
+  button: {
+    fontFamily: theme.fonts.primary,
+  },
   strong: {
     fontWeight: 600,
   },
