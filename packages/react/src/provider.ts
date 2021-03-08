@@ -1,5 +1,5 @@
 import { StyleObject } from '@panache/core/src/types'
-import React from 'react'
+import * as React from 'react'
 
 interface IPanacheContext {
   theme?: StyleObject
@@ -19,7 +19,7 @@ export function PanacheProvider(props: ProviderProps) {
 
   return React.createElement(
     PanacheContext.Provider,
-    { value: { theme, media }},
-    children
+    { value: { theme, media } },
+    children,
   )
-} 
+}

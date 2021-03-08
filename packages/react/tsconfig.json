@@ -1,0 +1,13 @@
+{
+  "strict": true,
+  "files": ["src/main.ts"],
+  "compilerOptions": {
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "declaration": true,
+    "noUnusedLocals": true,
+    "declarationDir": "./",
+    "rootDir": "src",
+  }
+}

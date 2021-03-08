@@ -82,7 +82,7 @@ const htmlTags = [
   'tbody',
   'td',
   'tfoot',
-  'th',	
+  'th',
   'thead',
   'tr',
   'button',
