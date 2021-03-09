@@ -1,5 +1,5 @@
 {
-  "name": "@panache/core",
+  "name": "panache-core",
   "version": "0.1.1",
   "description": "CSS in JS with Style Objects",
   "module": "dist/index.esm.js",

@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 
 const Container = panache.footer(({ theme }) => ({
   display: 'flex',

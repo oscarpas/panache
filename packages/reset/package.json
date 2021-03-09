@@ -1,5 +1,5 @@
 {
-  "name": "@panache/reset",
+  "name": "panache-reset",
   "version": "0.1.1",
   "description": "CSS reset files as Style Objects",
   "module": "dist/index.esm.js",
@@ -12,5 +12,6 @@
   "scripts": {
     "build": "rollup -c",
     "dev": "rollup -c -w"
-  }
+  },
+  "gitHead": "613ef2667b8a0cfb893debf7430dc5dc24219c3c"
 }

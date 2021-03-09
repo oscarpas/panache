@@ -36,15 +36,15 @@ const index = [
     label: 'API Reference', 
     children: [
       {
-        label: '@panache/core',
+        label: 'panache-core',
         path: '/api-reference/panache-core',
       },
       {
-        label: '@panache/react',
+        label: 'panache-react',
         path: '/api-reference/panache-react',
       },
       {
-        label: '@panache/reset',
+        label: 'panache-reset',
         path: '/api-reference/panache-reset',
       },
     ]

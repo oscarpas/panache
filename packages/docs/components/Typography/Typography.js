@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 
 export const Heading1 = panache.h1({
   fontWeight: 700,

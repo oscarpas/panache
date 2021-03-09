@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 import { Github, Hamburger } from '../Icons/Icons'
 import pkg from '../../package.json'
 

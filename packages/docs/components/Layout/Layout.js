@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import panache from '@panache/react'
+import panache from 'panache-react'
 import { Sidebar } from '../Sidebar/Sidebar'
 import { Footer } from '../Footer/Footer'
 import { Header } from '../Header/Header'

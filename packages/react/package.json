@@ -1,5 +1,5 @@
 {
-  "name": "@panache/react",
+  "name": "panache-react",
   "version": "0.1.1",
   "description": "CSS in JS as styled components with Style Objects",
   "main": "dist/panache.cjs.js",
@@ -40,5 +40,6 @@
     "@emotion/is-prop-valid": "^1.1.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1"
-  }
+  },
+  "gitHead": "613ef2667b8a0cfb893debf7430dc5dc24219c3c"
 }

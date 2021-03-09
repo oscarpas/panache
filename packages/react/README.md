@@ -1,4 +1,4 @@
-# @panache/react
+# panache-react
 
 Panache.js is a library for writing CSS as React components. Panache is inspired by Styled Components but it lets you write your CSS as Objects. 
 

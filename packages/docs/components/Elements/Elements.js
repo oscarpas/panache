@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 
 export const Ul = panache.ul(({}) => ({
   listStyle: 'disc',

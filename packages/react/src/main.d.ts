@@ -1,4 +1,4 @@
-import type { StyleGenerator, StyleObject } from '@panache/core/src/types';
+import type { StyleGenerator, StyleObject } from 'panache-core/src/types';
 import type { IPanacheContext } from './provider/provider'
 
 declare namespace panache {

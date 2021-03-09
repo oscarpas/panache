@@ -1,7 +1,7 @@
 import * as React from 'react'
-import type { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core/dist/types'
+import type { Styles, StyleGenerator, StyleObject, StyleList } from 'panache-core/dist/types'
 // eslint-disable-next-line
-import { hash, mergeObjects } from '@panache/core'
+import { hash, mergeObjects } from 'panache-core'
 import isPropValid from '@emotion/is-prop-valid'
 import { sheet } from '../sheet/sheet'
 import { PanacheContext, IPanacheMedia } from '../provider/provider'

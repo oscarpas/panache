@@ -1,4 +1,4 @@
-import { createGlobalStyle, PanacheProvider } from '@panache/react'
+import { createGlobalStyle, PanacheProvider } from 'panache-react'
 
 # Global styles
 
@@ -7,7 +7,7 @@ Panache is component scoped by design but sometimes it can be helpful to add glo
 You can use the helper function `createGlobalStyle` to do this. It works like the regular component creator and you have access to your `theme`, `media` and other props in the same way.
 
 ```jsx
-import { createGlobalStyle } from '@panache/react'
+import { createGlobalStyle } from 'panache-react'
 
 const GlobalStyle = createGlobalStyle(({ theme }) => ({
   html: {
@@ -32,17 +32,17 @@ Panache has a helper package with a CSS reset based on Eric Meyers famous file, 
 
 ```bash
 # with npm
-npm install --save @panache/reset
+npm install --save panache-reset
 
 # with yarn
-yarn add @panache/reset
+yarn add panache-reset
 ```
 
 Then import and pass the reset to `createGlobalStyle` as the second argument. This will merge the reset with your own global styles. Your styles will take precedent if you target the same selector and CSS property.
 
 ```jsx
-import { createGlobalStyle } from '@panache/react'
-import reset from '@panache/reset'
+import { createGlobalStyle } from 'panache-react'
+import reset from 'panache-reset'
 
 const globalStyles = ({ theme }) => ({
   html: {

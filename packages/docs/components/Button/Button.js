@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 
 export const Button = panache.button(({ theme, primary }) => ({
   background: primary ? theme.colors.primary : 'transparent',

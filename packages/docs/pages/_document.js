@@ -1,5 +1,5 @@
 import Document from 'next/document'
-import { getServerSheet } from '@panache/react'
+import { getServerSheet } from 'panache-react'
 import ReactDOMServer from 'react-dom/server'
 
 export default class MyDocument extends Document {

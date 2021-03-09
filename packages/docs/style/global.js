@@ -1,5 +1,5 @@
-import { createGlobalStyle } from '@panache/react'
-import reset from '@panache/reset'
+import { createGlobalStyle } from 'panache-react'
+import reset from 'panache-reset'
 
 const globalStyles = ({ theme, media }) => ({
   html: {

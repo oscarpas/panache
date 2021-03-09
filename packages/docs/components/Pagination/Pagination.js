@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 import navIndex from '../../constants/nav'
 import { ArrowRight } from '../Icons/Icons'
 import Link from 'next/link'

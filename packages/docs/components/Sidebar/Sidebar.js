@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 import Link from 'next/link'
 
 const Container = panache.div(({ theme }) => ({

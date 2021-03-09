@@ -1,4 +1,4 @@
-import { createGlobalStyle, PanacheProvider } from '@panache/react'
+import { createGlobalStyle, PanacheProvider } from 'panache-react'
 import { Layout } from '../components/Layout/Layout'
 import {MDXProvider} from '@mdx-js/react'
 import { Heading1, Heading2, Heading3, } from '../components/Typography/Typography'

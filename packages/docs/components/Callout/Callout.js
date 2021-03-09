@@ -1,6 +1,6 @@
 import { execOnce } from "next/dist/next-server/lib/utils"
 
-import panache from '@panache/react'
+import panache from 'panache-react'
 
 export const Callout = panache.div(({ theme, media }) => ({
   marginTop: '1.5rem',

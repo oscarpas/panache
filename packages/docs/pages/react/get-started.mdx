@@ -1,4 +1,4 @@
-import panache from '@panache/react'
+import panache from 'panache-react'
 import { useState } from 'react'
 import { Example } from '../../components/Example/Example'
 
@@ -8,10 +8,10 @@ import { Example } from '../../components/Example/Example'
 
 ```bash
 # with npm
-npm install --save @panache/react
+npm install --save panache-react
 
 # with yarn
-yarn add @panache/react
+yarn add panache-react
 ```
 
 ### Create Panache components
@@ -21,7 +21,7 @@ The Panache component creator takes a Style Object or a function that returns a 
 Below we'll initiate a `div` component and pass a Style Object to it.
 
 ```jsx
-import panache from '@panache/react'
+import panache from 'panache-react'
 
 const MyComponent = panache.div({
   color: '#fff',

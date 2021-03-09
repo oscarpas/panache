@@ -13,7 +13,7 @@ ReactDOMServer.renderToStaticMarkup(<App {...props} />)
 Then you use `getServerSheet` to get all the collected styles as `<style>` elements:
 
 ```jsx
-import { getServerSheet } from '@panache/react'
+import { getServerSheet } from 'panache-react'
 ...
 const styleElements = getServerSheet(<App {...props} />)
 ```
@@ -27,7 +27,7 @@ In your `pages/_document.js` file:
 
 ```jsx
 import Document from 'next/document'
-import { getServerSheet } from '@panache/react'
+import { getServerSheet } from 'panache-react'
 import ReactDOMServer from 'react-dom/server'
 
 export default class MyDocument extends Document {
