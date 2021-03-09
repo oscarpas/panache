@@ -1,5 +1,6 @@
 export const media = {
   dark: '@media (prefers-color-scheme: dark)',
+  small: '@media (max-width: 768px)',
 }
 
 export const theme = {

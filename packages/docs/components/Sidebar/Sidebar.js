@@ -6,9 +6,13 @@ const Container = panache.div(({ theme }) => ({
   color: theme.colors.grayMedium,
 }))
 
-export const Sidebar = ({ sidebarIndex, currentPath }) => {
+export const Sidebar = ({ sidebarIndex, currentPath, toggleMobileMenu }) => {
   return <Container>
-    <List listItems={sidebarIndex} currentPath={currentPath} />
+    <List
+      listItems={sidebarIndex}
+      currentPath={currentPath}
+      toggleMobileMenu={toggleMobileMenu}
+    />
   </Container>
 }
 
@@ -21,18 +25,22 @@ const ListContainer = panache.ul(({}) => ({
   }
 }))
 
-const List = ({ listItems, currentPath }) => {
+const List = ({ listItems, currentPath, toggleMobileMenu }) => {
   return <ListContainer>
     {listItems.map(item => <ListItem key={item.label} isCurrent={item.path === currentPath}>
       {item.path && <Link href={item.path}>
-        <a>
+        <a onClick={toggleMobileMenu}>
           <Label>
             {item.label}
           </Label>
         </a>
       </Link>}
       {!item.path && <Label>{item.label}</Label>}
-      {item.children && <List listItems={item.children} currentPath={currentPath} />}
+      {item.children && <List
+        listItems={item.children}
+        currentPath={currentPath}
+        toggleMobileMenu={toggleMobileMenu}
+      />}
     </ListItem>)}
   </ListContainer>
 }

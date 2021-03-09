@@ -1,10 +1,14 @@
 import panache from '@panache/react'
 
-const Container = panache.footer({
+const Container = panache.footer(({ theme }) => ({
   display: 'flex',
   flexWrap: 'wrap',
-  marginTop: '4rem',
-})
+  color: theme.colors.grayMedium,
+  fontSize: '0.875em',
+  a: {
+    color: theme.colors.grayMedium,
+  }
+}))
 
 const Item = panache.div({
   width: '50%',

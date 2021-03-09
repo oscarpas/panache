@@ -1,7 +1,7 @@
 import { createGlobalStyle } from '@panache/react'
 import reset from '@panache/reset'
 
-const globalStyles = ({ theme }) => ({
+const globalStyles = ({ theme, media }) => ({
   html: {
     fontFamily: theme.fonts.primary,
     color: theme.colors.primary,
@@ -26,6 +26,10 @@ const globalStyles = ({ theme }) => ({
   pre: {
     borderRadius: theme.borderRadius,
     backgroundColor: theme.colors.grayLight,
+    overflow: 'scroll',
+    [media.small]: {
+      fontSize: '0.875em',
+    }
   },
   code: {
     fontSize: '.9em',

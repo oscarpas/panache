@@ -6,7 +6,7 @@ import Link from 'next/link'
 const Container = panache.nav({
   display: 'flex',
   flexWrap: 'wrap',
-  marginTop: '50px'
+  margin: '3rem 0'
 })
 
 const PaginationItem = panache.div(({ theme }) => ({
@@ -23,6 +23,7 @@ const PaginationItem = panache.div(({ theme }) => ({
 }))
 
 const Prev = panache.extend(PaginationItem)({
+  textAlign: 'left',
   svg: {
     marginRight: '1rem',
     transform: 'rotate(180deg)',
@@ -30,6 +31,7 @@ const Prev = panache.extend(PaginationItem)({
 })
 
 const Next = panache.extend(PaginationItem)({
+  textAlign: 'right',
   justifyContent: 'flex-end',
   svg: {
     marginLeft: '1rem',

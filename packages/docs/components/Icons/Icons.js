@@ -5,3 +5,7 @@ export const Github = () => {
 export const ArrowRight = () => {
   return <svg height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7"></path></svg> 
 }
+
+export const Hamburger = () => {
+  return <svg fill="none" width="24" height="24" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+}

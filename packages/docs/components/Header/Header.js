@@ -1,5 +1,6 @@
 import panache from '@panache/react'
-import { Github } from '../Icons/Icons'
+import { Github, Hamburger } from '../Icons/Icons'
+import pkg from '../../package.json'
 
 const Container = panache.header(({ theme }) => ({
   display: 'flex',
@@ -7,6 +8,9 @@ const Container = panache.header(({ theme }) => ({
   borderBottom: theme.borders.faint,
   width: '100%',
   padding: '15px 20px',
+  position: 'sticky',
+  top: '0',
+  backgroundColor: theme.colors.background,
 }))
 
 const Section = panache.div({
@@ -27,16 +31,43 @@ const SubTitle = panache.span(({ theme }) => ({
   marginLeft: '0.5em',
 }))
 
-export const Header = ({}) => {
+const Version = panache.span(({ theme, media }) => ({
+  color: theme.colors.grayMedium,
+  fontSize: '0.875em',
+  marginRight: '1em',
+  [media.small]: {
+    display: 'none',
+  }
+}))
+
+const Action = panache.div(({ withMargin, hiddenDesktop, media }) => ({
+  display: 'flex',
+  textDecoration: 'none',
+  ...hiddenDesktop && {
+    display: 'none',
+    [media.small]: {
+      display: 'flex'
+    },
+  },
+  ...withMargin && {
+    marginLeft: '1em'
+  }
+}))
+
+export const Header = ({ toggleMobileMenu }) => {
   return <Container>
     <Section>
       <Title>Panache</Title>
       <SubTitle>Styled Objects Library</SubTitle>
     </Section>
     <Section>
-      <a href="https://github.com/oscarpas/panache" target="_blank">
+      <Action as="a" href="https://github.com/oscarpas/panache" target="_blank">
+        <Version>{pkg.version}</Version>
         <Github />
-      </a>
+      </Action>
+      <Action withMargin hiddenDesktop onClick={toggleMobileMenu}>
+        <Hamburger />
+      </Action>
     </Section>
   </Container>
 }
