@@ -5,6 +5,10 @@
   "module": "dist/index.esm.js",
   "main": "dist/index.cjs.js",
   "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0",
+    "yarn": ">=1.16.0"
+  },
   "devDependencies": {
     "rollup": "^2.40.0",
     "rollup-plugin-typescript": "^1.0.1"

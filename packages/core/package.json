@@ -7,7 +7,7 @@
   "license": "MIT",
   "types": "dist/main.d.ts",
   "engines": {
-    "node": ">=15.0.0",
+    "node": ">=14.0.0",
     "yarn": ">=1.16.0"
   },
   "devDependencies": {
