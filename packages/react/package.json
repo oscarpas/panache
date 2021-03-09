@@ -1,6 +1,6 @@
 {
   "name": "@panache/react",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "main": "index.js",
   "module": "dist/panache.esm.js",
   "license": "MIT",
@@ -17,15 +17,15 @@
     "@rollup/plugin-node-resolve": "^11.2.0",
     "@rollup/plugin-typescript": "^8.2.0",
     "@types/react": "^17.0.2",
-    "rollup": "^1.29.0",
-    "rollup-plugin-terser": "^7.0.2",
-    "tslib": "^2.0.3",
-    "typescript": "^4.0.5",
     "eslint": "^7.21.0",
     "eslint-config-airbnb-typescript": "^12.3.1",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
-    "eslint-plugin-react": "^7.20.3"
+    "eslint-plugin-react": "^7.20.3",
+    "rollup": "^1.29.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "tslib": "^2.0.3",
+    "typescript": "^4.0.5"
   },
   "scripts": {
     "build": "rollup -c",

@@ -1,6 +1,6 @@
 {
   "name": "@panache/core",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "module": "dist/index.esm.js",
   "main": "dist/index.cjs.js",
   "license": "MIT",
