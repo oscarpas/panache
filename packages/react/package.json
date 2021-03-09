@@ -1,7 +1,8 @@
 {
   "name": "@panache/react",
   "version": "0.1.0",
-  "main": "index.js",
+  "description": "CSS in JS as styled components with Style Objects",
+  "main": "dist/panache.cjs.js",
   "module": "dist/panache.esm.js",
   "license": "MIT",
   "engines": {
