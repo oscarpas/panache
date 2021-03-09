@@ -1,5 +1,5 @@
-import { StyleGenerator, StyleObject } from '@panache/core/src/types'
-import { createComponent, extendComponent } from './factory'
+import type { StyleGenerator, StyleObject } from '@panache/core/src/types'
+import { createComponent, extendComponent } from './factory/factory'
 import htmlTags from './utils/htmlTags'
 
 const panache = {
@@ -9,7 +9,7 @@ const panache = {
   extend: extendComponent,
 }
 
-export { getServerSheet } from './sheet'
-export { createGlobalStyle } from './factory'
-export { PanacheProvider, PanacheContext } from './provider'
+export { getServerSheet } from './sheet/sheet'
+export { createGlobalStyle } from './factory/factory'
+export { PanacheProvider, PanacheContext } from './provider/provider'
 export default panache

@@ -1,9 +1,10 @@
 import * as React from 'react'
 import type { Styles, StyleGenerator, StyleObject, StyleList } from '@panache/core/dist/types'
+// eslint-disable-next-line
 import { hash, mergeObjects } from '@panache/core'
 import isPropValid from '@emotion/is-prop-valid'
-import { sheet } from './sheet'
-import { PanacheContext } from './provider'
+import { sheet } from '../sheet/sheet'
+import { PanacheContext, IPanacheMedia } from '../provider/provider'
 
 /**
  * Create a unique hashed identifer for a component
@@ -49,6 +50,15 @@ export interface PanacheComponent {
   Type?: string
 }
 
+export interface PanacheComponentProps {
+  contents: any
+  className: string
+  children: React.ReactNode[]
+  as: string
+  theme: StyleObject
+  media: IPanacheMedia
+}
+
 /**
  * Create a react component styled with StyleObject(s)
  */
@@ -59,7 +69,7 @@ export function createComponent(
   let PanacheComponent: PanacheComponent
 
   // eslint-disable-next-line
-  PanacheComponent = function (props) {
+  PanacheComponent = function (props: PanacheComponentProps) {
     const context = React.useContext(PanacheContext)
     const { className, children, as, theme, media, ...rest } = props
     const asTarget = as ?? type

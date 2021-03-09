@@ -1,6 +1,6 @@
 {
   "strict": true,
-  "files": ["src/main.ts"],
+  "files": ["src/main.ts", "src/main.d.ts"],
   "compilerOptions": {
     "strict": true,
     "forceConsistentCasingInFileNames": true,

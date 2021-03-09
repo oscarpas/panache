@@ -13,7 +13,6 @@ module.exports = {
   },
   rules: {
     "@typescript-eslint/semi": "off",
-    "eol-last": "off",
     "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
     "curly": "off",
     "no-continue": "off",

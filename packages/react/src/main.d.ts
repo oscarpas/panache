@@ -1,8 +1,9 @@
-import { StyleGenerator, StyleObject } from '@panache/core/src/types';
+import type { StyleGenerator, StyleObject } from '@panache/core/src/types';
+import type { IPanacheContext } from './provider'
 
 declare namespace panache {
-  const ThemeContext: React.Context
-  const ThemeProvider: React.Provider
+  const ThemeContext: React.Context<IPanacheContext>
+  const ThemeProvider: React.Provider<any>
   function address(style: StyleObject | StyleGenerator): React.ElementType
   function article(style: StyleObject | StyleGenerator): React.ElementType
   function aside(style: StyleObject | StyleGenerator): React.ElementType
@@ -60,7 +61,7 @@ declare namespace panache {
   function sup(style: StyleObject | StyleGenerator): React.ElementType
   function time(style: StyleObject | StyleGenerator): React.ElementType
   function u(style: StyleObject | StyleGenerator): React.ElementType
-  //function var(style: StyleObject | StyleGenerator): React.ElementType
+  // function var(style: StyleObject | StyleGenerator): React.ElementType
   function wbr(style: StyleObject | StyleGenerator): React.ElementType
   function area(style: StyleObject | StyleGenerator): React.ElementType
   function audio(style: StyleObject | StyleGenerator): React.ElementType

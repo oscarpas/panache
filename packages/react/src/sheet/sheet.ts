@@ -1,4 +1,5 @@
 import * as React from 'react'
+// eslint-disable-next-line
 import { Sheet } from '@panache/core'
 
 export const sheet = new Sheet()

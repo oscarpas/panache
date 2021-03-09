@@ -1,16 +1,21 @@
+// eslint-disable-next-line
 import { StyleObject } from '@panache/core/src/types'
 import * as React from 'react'
 
-interface IPanacheContext {
+export interface IPanacheMedia {
+  contents: any
+}
+
+export interface IPanacheContext {
   theme?: StyleObject
-  media?: object
+  media?: IPanacheMedia
 }
 
 export const PanacheContext = React.createContext<IPanacheContext>({})
 
 type ProviderProps = {
   theme: StyleObject,
-  media: object,
+  media: IPanacheMedia,
   children: React.ReactNode
 }
 
