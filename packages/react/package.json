@@ -1,6 +1,6 @@
 {
   "name": "panache-react",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "CSS in JS as styled components with Style Objects",
   "main": "dist/panache.cjs.js",
   "module": "dist/panache.esm.js",
