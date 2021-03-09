@@ -1,5 +1,5 @@
 import type { StyleGenerator, StyleObject } from '@panache/core/src/types';
-import type { IPanacheContext } from './provider'
+import type { IPanacheContext } from './provider/provider'
 
 declare namespace panache {
   const ThemeContext: React.Context<IPanacheContext>
