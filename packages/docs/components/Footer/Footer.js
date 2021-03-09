@@ -19,7 +19,8 @@ const Item = panache.div({
 
 export const Footer = ({ currentPath }) => {
   const githubRepo = 'https://github.com/oscarpas/panache/tree/main/packages/docs/pages'
-  const pageLink = `${githubRepo}${currentPath}.mdx` 
+  const page = currentPath === '/' ? '/index' : currentPath
+  const pageLink = `${githubRepo}${page}.mdx` 
 
   return <Container>
     <Item>MIT 2021 © Panache</Item>
