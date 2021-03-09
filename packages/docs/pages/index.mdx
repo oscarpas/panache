@@ -40,13 +40,13 @@ And just like Styled Components it comes with features such as:
 
 Writing CSS as React components is a great way to handle styles for an app. You get styles that are scoped and coupled to your component. You don't have to worry about unexpected styling due to inheritance and it's easy to maintain your styles when they are coupled to your components. This design pattern is used by several libraries and Panache builds on their great ideas.
 
-Panache uses Styled Objects instead of plain CSS which enables additional features because it's easy to parse and transform objects into CSS.
+Panache uses Style Objects instead of plain CSS which enables additional features because it's easy to parse and transform objects into CSS.
 
 The main added features and their purpose are described below. These features may change and Panache is currently a proof of concept.
 
 ### Easy syntax
 
-Props are easily available, just destructure once. Panache also has first class support for media query rules.
+Props are easily available, just destructure once. Panache also has first class support for both theme and media queries.
 
 ```jsx
 const MyComponent = panache.div(({ theme, media, isActive }) => ({
@@ -61,7 +61,9 @@ const MyComponent = panache.div(({ theme, media, isActive }) => ({
 
 ### Responsive variables
 
-One big feature that Styled Objects and the Panache parser enables is responsive variables. Being able to bind CSS values to multiple media query rules can be very powerful and you'll avoid repeating yourself.
+One big feature that the Panache parser enables is responsive variables. With responsive values you can bind CSS values to media queries which can help keep styles consistant across devices and keep your code DRY.
+
+The default value of the variable below is `10px` while `20px` is bound to a media query. This will automatically output the media query rules for you in the parsed CSS.
 
 ```jsx
 const responsiveVariable = ['10px', ['@media(min-width: 768px', '20px']]
@@ -72,28 +74,30 @@ const MyComponent = panache.div({
 })
 ```
 
-When parsed to CSS:
-
-```css
-.MyComponent {
-  padding: 10px;
-  margin-top: 10px;
-}
-@media(min-width: 768px) {
-  .MyComponent {
-    padding: 20px;
-    margin-top: 20px;
-  }
-}
-```
-
 ### Share and extend styles
 
-Todo...
+Since your CSS is written as Style Objects it's easy and intuitive to extend simple styles with the spread operator.
+
+```jsx
+const MyComponent = panache.div(({ hasError, theme }) => ({
+  ...MyOtherComponent.Styles,
+  padding: responsiveVariable,
+  marginTop: responsiveVariable,
+  ...hasError && theme.myErrorStyles
+}))
+```
+
+You can also compose multiple Components or Style Objects to create a new component.
+
+```jsx
+const MyComponent = panache.extend(MyOtherComponent, myStyleObject)({
+  padding: '20px'
+})
+```
 
 ### Type safe
 
-Todo...
+Another benefit of Style Objects is that since they're objects you can write type safe styles.
 
 ## Inspired by
 

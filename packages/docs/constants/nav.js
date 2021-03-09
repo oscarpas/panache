@@ -8,27 +8,27 @@ const index = [
     children: [
       {
         label: 'Get started', 
-        path: '/docs/get-started'
+        path: '/react/get-started'
       },
       {
         label: 'Theme and media queries', 
-        path: '/docs/theme-media'
+        path: '/react/theme-media'
       },
       {
         label: 'Responsive variables', 
-        path: '/docs/responsive-variables'
+        path: '/react/responsive-variables'
       },
       {
         label: 'Extend components', 
-        path: '/docs/extend'
+        path: '/react/extend-components'
       },
       {
         label: 'Global styles', 
-        path: '/docs/global'
+        path: '/react/global-styles'
       },
       {
         label: 'Server side rendering', 
-        path: '/docs/ssr'
+        path: '/react/ssr'
       },
     ]
   },
@@ -37,12 +37,15 @@ const index = [
     children: [
       {
         label: '@panache/core',
+        path: '/api-reference/panache-core',
       },
       {
         label: '@panache/react',
+        path: '/api-reference/panache-react',
       },
       {
         label: '@panache/reset',
+        path: '/api-reference/panache-reset',
       },
     ]
   },

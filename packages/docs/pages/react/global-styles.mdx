@@ -28,7 +28,7 @@ Then add the `GlobalStyle` at the top of your app tree, but inside your provider
 
 ### Reset CSS
 
-Panache has a helper package with a CSS reset based on Eric Meyers famous reset file, but formatted as a Style Object. To use the reset first install the package:
+Panache has a helper package with a CSS reset based on Eric Meyers famous file, but formatted as a Style Object. To use the reset first install the package:
 
 ```bash
 # with npm
@@ -54,4 +54,4 @@ const globalStyles = ({ theme }) => ({
 const GlobalStyle = createGlobalStyle(globalStyles, reset)
 ```
 
-If you prefer another reset you can also pass in your own as long as it's formatted as a Styled Object.
+If you prefer another reset you can also pass in your own as long as it's formatted as a Style Object.

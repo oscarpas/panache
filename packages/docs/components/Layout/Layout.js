@@ -19,6 +19,7 @@ const SidebarContainer = panache.aside(({ theme, media, mobileMenuVisible }) => 
   backgroundColor: theme.colors.background,
   transition: 'left 0.2s ease',
   willChange: 'left',
+  overflowX: 'scroll',
   [media.small]: {
     position: 'fixed',
     maxWidth: 'none',

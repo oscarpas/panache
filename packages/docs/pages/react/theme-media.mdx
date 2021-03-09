@@ -1,11 +1,13 @@
 # Theme and media queries
 
+The theme is an object where you can store anything you want readily available, such as colors, fonts and more. Likewise the media object is a place to store media queries you want to re-use throughout your code.
+
 Add the Panache Provider at the top of your component tree. Pass theme and media objects as props to the provider.
 
 ```jsx
 import { PanacheProvider } from 'panache'
 
-const media = {
+const theme = {
   colors: {
     primary: '#333',
     accent: 'blue',
@@ -18,7 +20,9 @@ const media = {
 const media = {
   small: '@media(max-width: 768px)'
 }
+```
 
+```jsx
 <PanacheProvider media={media} theme={theme}>
   <App />
 </PanacheProvider>

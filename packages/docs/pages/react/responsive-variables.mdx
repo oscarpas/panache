@@ -1,15 +1,21 @@
 # Responsive variables
 
-With responsive variables you can bind CSS values to media query rules. Define a responsive variable as an array, the values of the array can be:
--  Default value as a `String`
--  Responsive value as an `Array` 
-
-The responsie value should be a tuple where the first value is a media query and the second value is CSS value that will be bound to the media query rule.
-
-For example, the below variable would have a default value of `16px` and responsive value of `20px` which is bound to the media query rule. You can add as many responsive values as you like.
+With responsive variables you can bind CSS values to media query rules. Define a responsive variable as an array:
 
 ```jsx
-['16px', ['@media(min-width: 768px', '20px']]
+['10px', ['@media (min-width: 768px)', '20px']]
+```
+
+The values of the array can either be a string, which will be parsed as the default value. Or it can be a tuple which will be parsed as responsive value. The first value of the tuple should be a media query rule and the second a value you want to bind to the rule.
+
+You can add as many responsive values as you want, but only one default:
+
+```jsx
+[
+  '10px',
+  ['@media (min-width: 768px)', '20px'],
+  ['@media (min-width: 1024px)', '30px'],
+]
 ```
 
 ### Example 1: Consistent and adaptive white space across devices

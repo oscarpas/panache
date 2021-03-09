@@ -1,8 +1,8 @@
 # Server side rendering
 
-Server side rendering of styles is supported, exactly how you enable it depends on your SSR framework.
+Server side rendering of styles is supported, exactly how you enable it depends on your SSR framework. Here's the gist of it:
 
-First you need to run `ReactDOMServer.renderToStaticMarkup` which renders your App so Panache can collect all the styles. Pass your entire App tree to as an argument:
+First you need to run `ReactDOMServer.renderToStaticMarkup` which renders your App so Panache can collect all the styles. Pass your entire App tree as an argument:
 
 ```jsx
 import ReactDOMServer from 'react-dom/server'
