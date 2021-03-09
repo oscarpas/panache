@@ -1,6 +1,6 @@
 {
   "name": "@panache/reset",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "CSS reset files as Style Objects",
   "module": "dist/index.esm.js",
   "main": "dist/index.cjs.js",
