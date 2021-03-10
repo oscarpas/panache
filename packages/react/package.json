@@ -4,6 +4,7 @@
   "description": "CSS in JS as styled components with Style Objects",
   "main": "dist/panache.cjs.js",
   "module": "dist/panache.esm.js",
+  "types": "dist/main.d.ts",
   "license": "MIT",
   "engines": {
     "node": ">=14.0.0",

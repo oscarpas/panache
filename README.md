@@ -14,6 +14,8 @@ And just like Styled Components it comes with features such as:
 - **Dynamic styling based on props**
 - **Easy maintenance:** Styles are coupled to your component
 
+**Version 1 is not yet relesed, breaking changes may occur and there are known limitations.**
+
 ## Get started
 
 ### Installation
