@@ -1,0 +1,125 @@
+* {
+	box-sizing: border-box;
+}
+body,
+html {
+	padding: 0;
+	margin: 0;
+	font-family: sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+.wrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.attribution {
+	height: 10vh;
+	border-top: 1px solid #eee;
+	padding: 10px;
+}
+
+a {
+	color: #3a57ab;
+	text-decoration: none;
+	border-radius: 6px;
+	border: 3px solid transparent;
+	display: inline-flex;
+	padding: 2px 4px;
+	margin: 0 -7px;
+}
+a:hover {
+	border: 3px solid #3a57ab;
+}
+
+.attribution .title {
+	font-weight: bold;
+}
+
+.app {
+	font-family: sans-serif;
+	display: flex;
+	flex-direction: row;
+}
+
+.content,
+.component {
+	width: 50vw;
+	height: 90vh;
+	padding: 1em;
+}
+
+.content {
+	border-right: 1px solid #eee;
+}
+
+.form {
+	display: flex;
+	justify-content: flex-start;
+}
+
+label {
+	display: block;
+	margin-right: 1em;
+	font-size: 0.8rem;
+	flex-grow: 1;
+}
+button {
+	display: block;
+	margin-right: 1em;
+}
+
+select {
+	display: block;
+	width: 100%;
+}
+input {
+	display: block;
+}
+
+table {
+	border-collapse: collapse;
+	width: 100%;
+}
+th,
+td {
+	padding: 8px 12px;
+	text-align: right;
+	border-bottom: 1px solid #ddd;
+}
+th {
+	background-color: #f9f9f9;
+	color: #444;
+}
+td {
+	font-family: monospace;
+}
+tbody th {
+	text-align: left;
+	border-bottom: 0;
+	background: transparent;
+	font-weight: normal;
+	font-size: 0.9em;
+}
+
+tbody th + th {
+	text-align: right;
+}
+
+h1 {
+	font-size: 1.6em;
+}
+h1 span {
+	display: block;
+	font-size: 1rem;
+}
+
+.results {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
