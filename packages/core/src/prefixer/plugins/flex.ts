@@ -1,5 +1,8 @@
-/* @flow */
-const values = {
+interface FlexValues {
+  [cssProperty: string]: Array<string>
+}
+
+const values: FlexValues = {
   flex: ['-webkit-box', '-moz-box', '-ms-flexbox', '-webkit-flex'],
   'inline-flex': [
     '-webkit-inline-box',
@@ -9,8 +12,9 @@ const values = {
   ],
 }
 
-export default function flex(property: string, value: any): ?Array<string> {
-  if (property === 'display' && values.hasOwnProperty(value)) {
+export default function flex(property: string, value: any): Array<string> | void {
+  if (property === 'display' && Object.prototype.hasOwnProperty.call(values, value)) {
     return values[value]
   }
+  return undefined
 }

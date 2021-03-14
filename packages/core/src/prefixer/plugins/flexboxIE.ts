@@ -1,4 +1,3 @@
-/* @flow */
 const alternativeValues = {
   'space-around': 'distribute',
   'space-between': 'justify',

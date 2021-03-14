@@ -5,7 +5,11 @@ const wm = ['Webkit', 'Moz']
 const wms = ['Webkit', 'ms']
 const wmms = ['Webkit', 'Moz', 'ms']
 
-export default {
+interface MetaData {
+  [property: string]: Array<string>
+}
+
+const metaData: MetaData = {
   appearance: wm,
   textEmphasisPosition: w,
   textEmphasis: w,
@@ -72,3 +76,5 @@ export default {
   wrapMargin: ms,
   textSizeAdjust: w,
 }
+
+export default metaData

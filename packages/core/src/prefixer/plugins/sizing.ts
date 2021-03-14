@@ -1,4 +1,3 @@
-/* @flow */
 const prefixes = ['-webkit-', '-moz-']
 
 const properties = {
@@ -10,6 +9,7 @@ const properties = {
   minWidth: true,
   minHeight: true,
 }
+
 const values = {
   'min-content': true,
   'max-content': true,
@@ -18,8 +18,12 @@ const values = {
   'contain-floats': true,
 }
 
-export default function sizing(property: string, value: any): ?Array<any> {
-  if (properties.hasOwnProperty(property) && values.hasOwnProperty(value)) {
-    return prefixes.map(prefix => prefix + value)
+export default function sizing(property: string, value: any): Array<any> | void {
+  if (
+    Object.prototype.hasOwnProperty.call(properties, property)
+    && Object.prototype.hasOwnProperty.call(values, value)
+  ) {
+    return prefixes.map((prefix) => prefix + value)
   }
+  return undefined
 }

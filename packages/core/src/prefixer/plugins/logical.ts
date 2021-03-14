@@ -1,5 +1,8 @@
-/* @flow */
-const alternativeProps = {
+interface AlternativeProps {
+  [cssProperty: string]: Array<string>
+}
+
+const alternativeProps: AlternativeProps = {
   marginBlockStart: ['WebkitMarginBefore'],
   marginBlockEnd: ['WebkitMarginAfter'],
   marginInlineStart: ['WebkitMarginStart', 'MozMarginStart'],
@@ -29,7 +32,7 @@ const alternativeProps = {
 export default function logical(
   property: string,
   value: any,
-  style: Object
+  style: Object,
 ): void {
   if (Object.prototype.hasOwnProperty.call(alternativeProps, property)) {
     const alternativePropList = alternativeProps[property]

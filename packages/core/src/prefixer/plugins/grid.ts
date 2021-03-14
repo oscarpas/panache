@@ -1,5 +1,3 @@
-/* @flow */
-
 function isSimplePositionValue(value: any) {
   return typeof value === 'number' && !isNaN(value)
 }
@@ -103,7 +101,7 @@ export default function grid(
   property: string,
   value: any,
   style: Object
-): ?Array<string> {
+): Array<string> | void {
   if (property === 'display' && value in displayValues) {
     return displayValues[value]
   }

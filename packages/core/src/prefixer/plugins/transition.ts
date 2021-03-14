@@ -1,5 +1,4 @@
-/* @flow */
-import { isPrefixedValue, hyphenateStyleName } from '../../utils/css'
+import { hyphenateStyleName } from '../../utils/css'
 import { capitalizeString } from '../../utils/string'
 
 const properties = {
@@ -18,10 +17,6 @@ const prefixMapping = {
 }
 
 function prefixValue(value: string, propertyPrefixMap: Object): string {
-  if (isPrefixedValue(value)) {
-    return value
-  }
-
   // only split multi values, not cubic beziers
   const multipleValues = value.split(/,(?![^()]*(?:\([^()]*\))?\))/g)
 
@@ -59,31 +54,19 @@ export default function transition(
   value: any,
   style: Object,
   propertyPrefixMap: Object
-): Array<string> | void {
-  // also check for already prefixed transitions
+): void {
   if (typeof value === 'string' && properties.hasOwnProperty(property)) {
     const outputValue = prefixValue(value, propertyPrefixMap)
-    // if the property is already prefixed
     const webkitOutput = outputValue
       .split(/,(?![^()]*(?:\([^()]*\))?\))/g)
       .filter(val => !/-moz-|-ms-/.test(val))
       .join(',')
-
-    if (property.indexOf('Webkit') > -1) {
-      return [webkitOutput]
-    }
-
     const mozOutput = outputValue
       .split(/,(?![^()]*(?:\([^()]*\))?\))/g)
       .filter(val => !/-webkit-|-ms-/.test(val))
       .join(',')
 
-    if (property.indexOf('Moz') > -1) {
-      return [mozOutput]
-    }
-
     style[`Webkit${capitalizeString(property)}`] = webkitOutput
     style[`Moz${capitalizeString(property)}`] = mozOutput
-    return [outputValue]
   }
 }
