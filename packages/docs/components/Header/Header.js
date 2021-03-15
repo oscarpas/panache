@@ -1,6 +1,6 @@
 import panache from 'panache-react'
 import { Github, Hamburger } from '../Icons/Icons'
-import pkg from '../../package.json'
+import pkg from 'panache-react/package.json'
 
 const Container = panache.header(({ theme }) => ({
   display: 'flex',
