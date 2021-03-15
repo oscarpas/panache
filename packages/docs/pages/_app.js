@@ -28,7 +28,7 @@ export default function App({ Component, pageProps }) {
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000" />
         <meta name="theme-color" content="#ffffff" />
-        <title>Panache.js</title>
+        <title>Panache – Styled Objects Library</title>
       </Head>
       <PanacheProvider theme={theme} media={media}>
         <MDXProvider components={components}>
