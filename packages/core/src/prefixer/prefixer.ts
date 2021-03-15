@@ -2,8 +2,8 @@ import plugins from './plugins'
 import metaData from './data'
 import { capitalizeString } from '../utils/string'
 
-interface AdditionalProperties {
-  [cssProperty: string]: string
+export interface AdditionalProperties {
+  [cssProperty: string]: string | number
 }
 
 type PrefixedValues = Array<string> | void

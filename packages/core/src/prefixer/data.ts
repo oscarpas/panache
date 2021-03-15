@@ -5,7 +5,7 @@ const wm = ['Webkit', 'Moz']
 const wms = ['Webkit', 'ms']
 const wmms = ['Webkit', 'Moz', 'ms']
 
-interface MetaData {
+export interface MetaData {
   [property: string]: Array<string>
 }
 

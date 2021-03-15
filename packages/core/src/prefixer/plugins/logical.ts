@@ -1,3 +1,6 @@
+/* eslint-disable no-param-reassign */
+import type { AdditionalProperties } from '../prefixer'
+
 interface AlternativeProps {
   [cssProperty: string]: Array<string>
 }
@@ -32,7 +35,7 @@ const alternativeProps: AlternativeProps = {
 export default function logical(
   property: string,
   value: any,
-  style: Object,
+  style: AdditionalProperties,
 ): void {
   if (Object.prototype.hasOwnProperty.call(alternativeProps, property)) {
     const alternativePropList = alternativeProps[property]

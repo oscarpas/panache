@@ -1,5 +1,8 @@
-/* @flow */
-const alternativeValues = {
+/* eslint-disable no-param-reassign */
+import type { AlternativeProps, ValueMappings } from './index'
+import type { AdditionalProperties } from '../prefixer'
+
+const alternativeValues: ValueMappings = {
   'space-around': 'justify',
   'space-between': 'justify',
   'flex-start': 'start',
@@ -8,7 +11,7 @@ const alternativeValues = {
   wrap: 'multiple',
 }
 
-const alternativeProps = {
+const alternativeProps: AlternativeProps = {
   alignItems: 'WebkitBoxAlign',
   justifyContent: 'WebkitBoxPack',
   flexWrap: 'WebkitBoxLines',
@@ -18,7 +21,7 @@ const alternativeProps = {
 export default function flexboxOld(
   property: string,
   value: any,
-  style: Object
+  style: AdditionalProperties,
 ): void {
   if (property === 'flexDirection' && typeof value === 'string') {
     if (value.indexOf('column') > -1) {
@@ -32,7 +35,7 @@ export default function flexboxOld(
       style.WebkitBoxDirection = 'normal'
     }
   }
-  if (alternativeProps.hasOwnProperty(property)) {
+  if (Object.prototype.hasOwnProperty.call(alternativeProps, property)) {
     style[alternativeProps[property]] = alternativeValues[value] || value
   }
 }

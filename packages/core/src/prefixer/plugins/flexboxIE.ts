@@ -1,10 +1,15 @@
-const alternativeValues = {
+/* eslint-disable no-param-reassign */
+import type { AlternativeProps, ValueMappings } from './index'
+import type { AdditionalProperties } from '../prefixer'
+
+const alternativeValues: ValueMappings = {
   'space-around': 'distribute',
   'space-between': 'justify',
   'flex-start': 'start',
   'flex-end': 'end',
 }
-const alternativeProps = {
+
+const alternativeProps: AlternativeProps = {
   alignContent: 'msFlexLinePack',
   alignSelf: 'msFlexItemAlign',
   alignItems: 'msFlexAlign',
@@ -14,20 +19,22 @@ const alternativeProps = {
   flexShrink: 'msFlexNegative',
   flexBasis: 'msFlexPreferredSize',
 }
+
 // Full expanded syntax is flex-grow | flex-shrink | flex-basis.
-const flexShorthandMappings = {
+const flexShorthandMappings: ValueMappings = {
   auto: '1 1 auto',
   inherit: 'inherit',
   initial: '0 1 auto',
   none: '0 0 auto',
   unset: 'unset',
 }
+
 const isUnitlessNumber = /^\d+(\.\d+)?$/
 
 export default function flexboxIE(
   property: string,
   value: any,
-  style: Object
+  style: AdditionalProperties,
 ): void {
   if (Object.prototype.hasOwnProperty.call(alternativeProps, property)) {
     style[alternativeProps[property]] = alternativeValues[value] || value

@@ -104,6 +104,7 @@ interface ComponentSheet {
 /**
  * Parse an array of StyleItems into a ComponentSheet
  * where rules are grouped by selector and media query
+ * @todo: use hyphenateStyleName instead of camelToDash?
  */
 export function parseStyleItems(rules: Array<StyleItem>) {
   const componentSheet = {} as ComponentSheet

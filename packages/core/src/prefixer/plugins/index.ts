@@ -14,6 +14,14 @@ import position from './position'
 import sizing from './sizing'
 import transition from './transition'
 
+export interface AlternativeProps {
+  [cssProperty: string]: string
+}
+
+export interface ValueMappings {
+  [cssValue: string]: string
+}
+
 export default [
   backgroundClip,
   calc,

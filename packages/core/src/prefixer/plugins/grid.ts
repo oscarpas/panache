@@ -1,5 +1,8 @@
+/* eslint-disable no-param-reassign */
+import type { AdditionalProperties } from '../prefixer'
+
 function isSimplePositionValue(value: any) {
-  return typeof value === 'number' && !isNaN(value)
+  return typeof value === 'number' && !Number.isNaN(value)
 }
 
 function isComplexSpanValue(value: string) {
@@ -8,19 +11,26 @@ function isComplexSpanValue(value: string) {
 
 const alignmentValues = ['center', 'end', 'start', 'stretch']
 
-const displayValues = {
+interface DisplayValues {
+  [cssValue: string]: Array<string>
+}
+const displayValues: DisplayValues = {
   'inline-grid': ['-ms-inline-grid'],
   grid: ['-ms-grid'],
 }
 
-const propertyConverters = {
-  alignSelf: (value: any, style: Object) => {
+interface PropertyConverters {
+  [func: string]: (value: any, style: AdditionalProperties) => void
+}
+
+const propertyConverters: PropertyConverters = {
+  alignSelf: (value: any, style: AdditionalProperties) => {
     if (alignmentValues.indexOf(value) > -1) {
       style.msGridRowAlign = value
     }
   },
 
-  gridColumn: (value: any, style: Object) => {
+  gridColumn: (value: any, style: AdditionalProperties) => {
     if (isSimplePositionValue(value)) {
       style.msGridColumn = value
     } else if (isComplexSpanValue(value)) {
@@ -38,20 +48,20 @@ const propertyConverters = {
     }
   },
 
-  gridColumnEnd: (value: any, style: Object) => {
+  gridColumnEnd: (value: any, style: AdditionalProperties) => {
     const { msGridColumn } = style
     if (isSimplePositionValue(value) && isSimplePositionValue(msGridColumn)) {
-      style.msGridColumnSpan = value - msGridColumn
+      style.msGridColumnSpan = value - Number(msGridColumn)
     }
   },
 
-  gridColumnStart: (value: any, style: Object) => {
+  gridColumnStart: (value: any, style: AdditionalProperties) => {
     if (isSimplePositionValue(value)) {
       style.msGridColumn = value
     }
   },
 
-  gridRow: (value: any, style: Object) => {
+  gridRow: (value: any, style: AdditionalProperties) => {
     if (isSimplePositionValue(value)) {
       style.msGridRow = value
     } else if (isComplexSpanValue(value)) {
@@ -69,28 +79,28 @@ const propertyConverters = {
     }
   },
 
-  gridRowEnd: (value: any, style: Object) => {
+  gridRowEnd: (value: any, style: AdditionalProperties) => {
     const { msGridRow } = style
     if (isSimplePositionValue(value) && isSimplePositionValue(msGridRow)) {
-      style.msGridRowSpan = value - msGridRow
+      style.msGridRowSpan = value - Number(msGridRow)
     }
   },
 
-  gridRowStart: (value: any, style: Object) => {
+  gridRowStart: (value: any, style: AdditionalProperties) => {
     if (isSimplePositionValue(value)) {
       style.msGridRow = value
     }
   },
 
-  gridTemplateColumns: (value: any, style: Object) => {
+  gridTemplateColumns: (value: any, style: AdditionalProperties) => {
     style.msGridColumns = value
   },
 
-  gridTemplateRows: (value: any, style: Object) => {
+  gridTemplateRows: (value: any, style: AdditionalProperties) => {
     style.msGridRows = value
   },
 
-  justifySelf: (value: any, style: Object) => {
+  justifySelf: (value: any, style: AdditionalProperties) => {
     if (alignmentValues.indexOf(value) > -1) {
       style.msGridColumnAlign = value
     }
@@ -100,7 +110,7 @@ const propertyConverters = {
 export default function grid(
   property: string,
   value: any,
-  style: Object
+  style: AdditionalProperties,
 ): Array<string> | void {
   if (property === 'display' && value in displayValues) {
     return displayValues[value]
@@ -110,4 +120,6 @@ export default function grid(
     const propertyConverter = propertyConverters[property]
     propertyConverter(value, style)
   }
+
+  return undefined
 }
