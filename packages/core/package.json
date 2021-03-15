@@ -1,6 +1,6 @@
 {
   "name": "panache-core",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "description": "CSS in JS with Style Objects",
   "module": "dist/index.esm.js",
   "main": "dist/index.cjs.js",

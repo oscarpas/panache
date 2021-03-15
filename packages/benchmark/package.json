@@ -1,6 +1,6 @@
 {
   "name": "panache-benchmark",
-  "version": "1.0.0",
+  "version": "0.2.0",
   "main": "src/index.js",
   "license": "MIT",
   "private": true,
