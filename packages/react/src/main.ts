@@ -1,4 +1,4 @@
-import type { StyleGenerator, StyleObject } from 'panache-core/src/types'
+import type { StyleGenerator, StyleObject } from './types/panache'
 import { createComponent, extendComponent } from './factory/factory'
 import htmlTags from './utils/htmlTags'
 

@@ -5,9 +5,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noImplicitReturns": true,
-    "declaration": true,
+    "declaration": false,
     "noUnusedLocals": true,
-    "declarationDir": "./",
     "rootDir": "src",
   }
 }

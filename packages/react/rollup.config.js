@@ -2,6 +2,7 @@ import pkg from './package.json'
 import typescript from '@rollup/plugin-typescript'
 import { terser } from 'rollup-plugin-terser'
 import { nodeResolve } from '@rollup/plugin-node-resolve'
+import copy from 'rollup-plugin-copy'
 
 const isDev = process.env.BUILD === 'dev'
 
@@ -17,6 +18,12 @@ const plugins = isDev
 				comments: false
 			}
 		}),
+		copy({
+			targets: [
+				{ src: 'src/main.d.ts', dest: 'dist' },
+				{ src: 'src/types/**/*', dest: 'dist/types' },
+			]
+		})
 	]
 
 export default [

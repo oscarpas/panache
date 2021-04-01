@@ -1,6 +1,5 @@
-// eslint-disable-next-line
-import { StyleObject } from 'panache-core/src/types'
 import * as React from 'react'
+import { StyleObject } from '../types/panache'
 
 export interface IPanacheMedia {
   contents: any
